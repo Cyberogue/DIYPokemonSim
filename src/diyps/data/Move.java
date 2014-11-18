@@ -58,8 +58,13 @@ public class Move {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return "[" + name + ", " + movetype + ", " + value + " " + movemode + "]";
+    }
+
     public static enum MoveMode {
 
-        DAMAGE, ATTK, ATTK_SELF, DEF, DEF_SELF, SPD, SPD_SELF
+        Damage, Attack, Attack_Self, Defense, Defense_Self, Speed, Speed_Self
     }
 }

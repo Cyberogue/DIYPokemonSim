@@ -46,15 +46,14 @@ public class PokemonXMLLoader {
         dBuilder = dbFactory.newDocumentBuilder();
     }
 
-    public void loadTrainer(String directory) throws Exception {
+    public Trainer loadTrainer(String directory) throws Exception {
         Document doc = dBuilder.parse(new File(directory));
         doc.getDocumentElement().normalize();
 
         Node root = doc.getDocumentElement();
         NodeList nodes = root.getChildNodes();
-        System.out.println(nodes.getLength());
 
-        String trainerName;
+        Trainer trainer = null;
         ArrayList party = new ArrayList();
 
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -64,32 +63,73 @@ public class PokemonXMLLoader {
                 String name = node.getNodeName();
                 switch (name) {
                     case NAME_NODE:
-                        trainerName = node.getTextContent();
-                        System.out.println(trainerName);
+                        trainer = new Trainer(node.getTextContent());
                         break;
                     case POKEMON_NODE:
-                        loadPokemon(node);
+                        trainer.addToParty(loadPokemon(node));
+                        break;
+                    default:
+                        System.out.println("Unknown node " + name);
                         break;
                 }
             }
         }
+
+        return trainer;
     }
 
     private Pokemon loadPokemon(Node basenode) {
         NodeList nodes = basenode.getChildNodes();
+        ArrayList<Move> pkMoves = new ArrayList(4);
+        Attributes pkAttr = new Attributes();
+        ElementType type1 = ElementType.Unknown;
+        ElementType type2 = null;
+        String pkName = "MissingNo";
+
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 String name = node.getNodeName();
-                System.out.println(name);
                 switch (name) {
                     case NAME_NODE:
+                        pkName = node.getTextContent();
                         break;
-                    case POKEMON_NODE:
+                    case TYPE1_NODE:
+                        type1 = ElementType.valueOf(node.getTextContent());
+                        break;
+                    case TYPE2_NODE:
+                        type2 = ElementType.valueOf(node.getTextContent());
+                        break;
+                    case ATTRIBUTES_NODE: {
+                        NamedNodeMap attributes = node.getAttributes();
+                        int health = Integer.parseInt(attributes.getNamedItem(PK_HEALTH_ATTR).getNodeValue());
+                        int attack = Integer.parseInt(attributes.getNamedItem(PK_ATTK_ATTR).getNodeValue());
+                        int defense = Integer.parseInt(attributes.getNamedItem(PK_DEF_ATTR).getNodeValue());
+                        int speed = Integer.parseInt(attributes.getNamedItem(PK_SPD_ATTR).getNodeValue());
+                        pkAttr.set(health, attack, defense, speed);
+                    }
+                    break;
+                    case MOVE_NODE: {
+                        NamedNodeMap attributes = node.getAttributes();
+                        String movename = attributes.getNamedItem(MOV_NAME_ATTR).getNodeValue();
+                        ElementType movetype = ElementType.valueOf(attributes.getNamedItem(MOV_TYPE_ATTR).getNodeValue());
+                        Move.MoveMode movemode = Move.MoveMode.valueOf(attributes.getNamedItem(MOV_MODE_ATTR).getNodeValue());
+                        int movevalue = Integer.parseInt(attributes.getNamedItem(MOV_VALUE_ATTR).getNodeValue());
+
+                        Move move = new Move(movename, movetype, movemode, movevalue);
+                        pkMoves.add(move);
+                    }
+                    break;
+
+                    default:
+                        System.out.println("Unknown node " + name);
                         break;
                 }
             }
         }
-        return null;
+
+        Pokemon pokemon = new Pokemon(pkName, pkAttr.health(), pkAttr.attack(), pkAttr.defense(), pkAttr.speed(), type1, type2);
+        pokemon.addMoves(pkMoves);
+        return pokemon;
     }
 }

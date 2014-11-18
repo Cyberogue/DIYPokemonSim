@@ -181,6 +181,19 @@ public class Pokemon {
         return moveset.get(index);
     }
 
+    /**
+     * Returns a list of all the moves this Pokémon knows
+     *
+     * @return a list of all the moves this Pokémon knows
+     */
+    public List<Move> getMoveset() {
+        return moveset;
+    }
+
+    protected void addMoves(List<Move> moves) {
+        this.moveset.addAll(moves);
+    }
+
     @Override
     public String toString() {
         return name + " [" + type1 + (type2 == null ? "" : "/" + type2) + " " + attributes + "]";

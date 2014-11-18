@@ -9,6 +9,8 @@ import diyps.data.PokeCalculator;
 import diyps.data.Pokemon;
 import diyps.data.PokemonXMLLoader;
 import diyps.data.ElementType;
+import diyps.data.Move;
+import diyps.data.Trainer;
 
 /**
  * Class containing the main entry point for the program
@@ -28,13 +30,18 @@ public class DIYPokemonSim {
             System.out.println("Successfully loaded data");
 
             PokemonXMLLoader loader = new PokemonXMLLoader();
-            loader.loadTrainer("Data/pikachu.xml");
+            Trainer alice = loader.loadTrainer("Data/pikachu.xml");
+
+            System.out.println(alice);
+
+            for (Pokemon pokemon : alice.getParty()) {
+                System.out.println("* " + pokemon);
+                for (Move move : pokemon.getMoveset()) {
+                    System.out.println("\t* " + move);
+                }
+            }
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }
-
-        Pokemon pikachu = new Pokemon("Pikachu", 35, 55, 40, 90, ElementType.Electric);
-        Pokemon charmander = new Pokemon("Charmander", 39, 52, 43, 65, ElementType.Fire);
-        Pokemon gyarados = new Pokemon("Gyarados", 95, 125, 79, 81, ElementType.Water, ElementType.Flying);
     }
 }

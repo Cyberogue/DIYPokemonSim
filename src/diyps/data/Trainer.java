@@ -33,35 +33,70 @@ import java.util.List;
  * @author Alice Quiros
  */
 public class Trainer {
-
+    
     private final String name;
     private final List<Pokemon> party;
     private final TrainerInventory inventory;
 
+    /**
+     * Basic constructor for a trainer without Pokémon :(
+     *
+     * @param name The name of the trainer
+     */
     public Trainer(String name) {
         this.name = name;
         this.party = new ArrayList();
         this.inventory = new TrainerInventory();
     }
 
+    /**
+     * Basic constructor for a trainer who already has Pokémon
+     *
+     * @param name The name of the trainer
+     * @param party THe Pokémon in the trainer's party
+     */
+    public Trainer(String name, List<Pokemon> party) {
+        this(name);
+        party.addAll(party);
+    }
+
+    /**
+     * Returns the name of the trainer
+     *
+     * @return the name of the trainer
+     */
     public String name() {
         return name;
     }
 
+    /**
+     * Adds a Pokémon to the trainer's party
+     *
+     * @param pokemon the Pokémon to add to the party
+     */
     protected void addToParty(Pokemon pokemon) {
         party.add(pokemon);
     }
 
+    /**
+     * Returns a list of all the Pokémon in the trainer's party
+     *
+     * @return a list of all the Pokémon in the trainer's party
+     */
+    public List<Pokemon> getParty() {
+        return party;
+    }
+    
     @Override
     public String toString() {
         String s = name + " [";
-
+        
         for (Pokemon pokemon : party) {
-            s += pokemon.name() + ", ";
+            s += pokemon.name().concat(", ");
         }
-
+        
         s += "]";
-
+        
         return s;
     }
 }
