@@ -23,6 +23,7 @@
  */
 package diyps.game;
 
+import static diyps.data.DIYPokemonConstants.*;
 import diyps.data.Trainer;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -38,13 +39,18 @@ import javax.swing.border.Border;
  *
  * @author Alice Quiros
  */
-public class DIYPokemonFrame extends JFrame {
+public class DIYPokemonGUI extends JFrame {
 
     JTextArea console;
     Trainer player1;
     Trainer player2;
+    JComponent player1Stats;
+    JComponent player2Stats;
+    JComponent player1Options;
+    JComponent player2Options;
+    JButton endTurnButton;
 
-    public DIYPokemonFrame(Trainer player1, Trainer player2) {
+    public DIYPokemonGUI(Trainer player1, Trainer player2) {
         this.setMinimumSize(new Dimension(1024, 768));
         this.setPreferredSize(new Dimension(1024, 768));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +68,21 @@ public class DIYPokemonFrame extends JFrame {
         /**
          * PLAYER 1
          */
-        
-        
+        /**
+         * ROUND END BUTTON
+         */
+        endTurnButton = new JButton(END_TURN_TEXT);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridwidth = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.PAGE_END;
+
+        add(new JScrollPane(endTurnButton), gbc);
+
         /**
          * CONSOLE
          */
@@ -75,11 +94,12 @@ public class DIYPokemonFrame extends JFrame {
 
         console.append("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
-        gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 1;
+        gbc.weighty = 0;
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weighty = 1;
         gbc.anchor = GridBagConstraints.PAGE_END;
 
         add(new JScrollPane(console), gbc);

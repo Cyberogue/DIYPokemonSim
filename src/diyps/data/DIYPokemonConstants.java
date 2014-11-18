@@ -56,4 +56,5 @@ public final class DIYPokemonConstants {
     // GUI
     public static final int OUTER_PADDING = 10;
     public static final int INNER_PADDING = 10;
+    public static final String END_TURN_TEXT = "End Turn";
 }
