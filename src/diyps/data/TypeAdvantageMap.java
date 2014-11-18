@@ -27,6 +27,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -39,7 +41,17 @@ public class TypeAdvantageMap {
 
     public static final float GENERATION = 6.0f;
 
+    private final static TypeAdvantageMap singleton = new TypeAdvantageMap();
     private Map<TypeEnum, Map<TypeEnum, Float>> values;
+
+    /**
+     * Returns the singleton instance of this construct
+     *
+     * @return he singleton instance of this construct
+     */
+    public static TypeAdvantageMap getInstance() {
+        return singleton;
+    }
 
     /**
      * Loads the type advantage data from a CSV containing a single header row
@@ -47,14 +59,30 @@ public class TypeAdvantageMap {
      * missing data will be filled in with 1.0
      *
      * @param directory The location of the CSV file
+     * @param delim The delimiter used in the CSV. By default, most use a comma.
      * @throws IOException When an IO exception occurs
      */
-    public void loadDataFromCSV(String directory) throws IOException {
+    public static void loadDataFromCSV(String directory, String delim) throws IOException {
+        // Open the file for reading
         File csvFile = new File(directory);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
 
-        for (String line = br.readLine(); line != null;) {
-            System.out.println(line);
+        // Read in the header to know where everything is
+        String line = br.readLine();
+        ArrayList<TypeEnum> header = new ArrayList(TypeEnum.values().length);
+
+        String[] values = line.split(delim);
+        for (int i = 1; i < values.length; i++) {
+            header.add(TypeEnum.valueOf(values[i]));
+        }
+
+        System.out.println(header);
+
+        for (line = br.readLine(); line != null; line = br.readLine()) {
+            values = line.split(delim);
+            EnumMap<TypeEnum, Float> row = new EnumMap(TypeEnum.class);
+            TypeEnum rowName = TypeEnum.valueOf(values[0]);
+
         }
     }
 }
