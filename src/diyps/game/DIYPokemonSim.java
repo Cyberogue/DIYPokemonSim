@@ -5,7 +5,10 @@
  */
 package diyps.game;
 
-import diyps.data.TypeAdvantageMap;
+import diyps.data.PokeCalculator;
+import diyps.data.Pokemon;
+import diyps.data.PokemonXMLLoader;
+import diyps.data.ElementType;
 
 /**
  * Class containing the main entry point for the program
@@ -21,10 +24,17 @@ public class DIYPokemonSim {
      */
     public static void main(String[] args) {
         try {
-            TypeAdvantageMap.loadDataFromCSV("Data/typeadv.csv", ",");
+            PokeCalculator.loadTypeDataFromCSV("Data/typeadv.csv", ",");
+            System.out.println("Successfully loaded data");
+
+            PokemonXMLLoader loader = new PokemonXMLLoader();
+            loader.loadTrainer("Data/pikachu.xml");
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }
-    }
 
+        Pokemon pikachu = new Pokemon("Pikachu", 35, 55, 40, 90, ElementType.Electric);
+        Pokemon charmander = new Pokemon("Charmander", 39, 52, 43, 65, ElementType.Fire);
+        Pokemon gyarados = new Pokemon("Gyarados", 95, 125, 79, 81, ElementType.Water, ElementType.Flying);
+    }
 }

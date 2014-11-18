@@ -23,11 +23,191 @@
  */
 package diyps.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class containing data pertaining to a single Pokemon
  *
  * @author Alice Quiros
  */
 public class Pokemon {
+
+    private final String name;
+    private final Attributes initAttributes;
+    private Attributes attributes;
+    private ElementType type1;
+    private ElementType type2;
+    private List<Move> moveset;
+
+    /**
+     * Default constructor for a two-type Pokémon
+     *
+     * @param name The name of the Pokémon
+     * @param initHp The starting health
+     * @param initAttk the starting attack value
+     * @param initDef the starting defense value
+     * @param initSpd the starting speed value
+     * @param primaryType the Pokémon's primary type
+     * @param secondaryType the Pokémon's secondary type
+     */
+    public Pokemon(String name, int initHp, int initAttk, int initDef, int initSpd, ElementType primaryType, ElementType secondaryType) {
+        this.name = name;
+        this.initAttributes = new Attributes(initHp, initAttk, initDef, initSpd);
+        this.attributes = initAttributes.copyOf();
+        this.type1 = primaryType;
+        this.type2 = secondaryType;
+        this.moveset = new ArrayList(4);
+    }
+
+    /**
+     * Default constructor for a single-type Pokémon
+     *
+     * @param name The name of the Pokémon
+     * @param initHp The starting health
+     * @param initAttk the starting attack value
+     * @param initDef the starting defense value
+     * @param initSpd the starting speed value
+     * @param primaryType the Pokémon's primary and only type
+     */
+    public Pokemon(String name, int initHp, int initAttk, int initDef, int initSpd, ElementType primaryType) {
+        this(name, initHp, initAttk, initDef, initSpd, primaryType, null);
+    }
+
+    /**
+     * Returns a copy of the initial attributes of the Pokémon
+     *
+     * @return a copy of the initial attributes of the Pokémon
+     */
+    public Attributes getInitialAttributes() {
+        return initAttributes.copyOf();
+    }
+
+    /**
+     * Returns the current attributes of the Pokémon
+     *
+     * @return the current attributes of the Pokémon
+     */
+    public Attributes getAttributes() {
+        return attributes;
+    }
+
+    /**
+     * Resets the current attributes to their initial values
+     */
+    public void resetAttributes() {
+        attributes = initAttributes.copyOf();
+    }
+
+    /**
+     * Returns the Pokémon's primary type
+     *
+     * @return the Pokémon's primary type
+     */
+    public ElementType primaryType() {
+        return type1;
+    }
+
+    /**
+     * Returns the Pokémon's name
+     *
+     * @return the Pokémon's name
+     */
+    public String name() {
+        return name;
+    }
+
+    /**
+     * Returns the Pokémon's secondary type or null if it has none
+     *
+     * @return the Pokémon's secondary type or null if it has none
+     */
+    public ElementType secondaryType() {
+        return type2;
+    }
+
+    /**
+     * Returns the Pokémon's starting health
+     *
+     * @return the Pokémon's starting health
+     */
+    public int initialHealth() {
+        return initAttributes.health();
+    }
+
+    /**
+     * Returns the Pokémon's starting attack
+     *
+     * @return the Pokémon's starting attack
+     */
+    public int initialAttack() {
+        return initAttributes.attack();
+    }
+
+    /**
+     * Returns the Pokémon's starting defense
+     *
+     * @return the Pokémon's starting defense
+     */
+    public int initialDefense() {
+        return initAttributes.defense();
+    }
+
+    /**
+     * Returns the Pokémon's starting speed
+     *
+     * @return the Pokémon's starting speed
+     */
+    public int initialSpeed() {
+        return initAttributes.speed();
+    }
+
+    /**
+     * Returns the number of moves a Pokémon has available
+     *
+     * @return the number of moves a Pokémon has available
+     */
+    public int numMoves() {
+        return moveset.size();
+    }
+
+    /**
+     * Returns a specific move, or null if there is none
+     *
+     * @param index the index of the move from 1 to 4
+     * @return a specific move
+     */
+    public Move getMove(int index) {
+        return moveset.get(index);
+    }
+
+    @Override
+    public String toString() {
+        return name + " [" + type1 + (type2 == null ? "" : "/" + type2) + " " + attributes + "]";
+    }
+
+    /**
+     * Returns a new Pokémon instance with the same initial attributes as this
+     * one, but reset volatile attributes
+     *
+     * @return a new Pokémon instance
+     */
+    public Pokemon copyOf() {
+        return new Pokemon(name, initAttributes.health(), initAttributes.attack(), initAttributes.defense(), initAttributes.speed(), type1, type2);
+    }
+
+    /**
+     * Compares this Pokémon with another and returns true if both Pokémon are
+     * equal, ignoring any differences between their volatile attributes
+     *
+     * @param pokemon the second Pokémon to compare to
+     * @return true if both Pokémon are equal
+     */
+    public boolean equals(Pokemon pokemon) {
+        return (this.name.equals(pokemon.name)
+                && this.type1 == pokemon.type1
+                && this.type2 == pokemon.type2
+                && this.initAttributes.equals(pokemon.initAttributes));
+    }
 
 }

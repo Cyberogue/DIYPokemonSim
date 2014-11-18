@@ -28,7 +28,7 @@ package diyps.data;
  *
  * @author Alice Quiros
  */
-public enum TypeEnum {
+public enum ElementType {
 
     Normal, Fighting, Flying, Poison, Ground, 
     Rock, Bug, Ghost, Steel, Fire, Water, Grass, 
