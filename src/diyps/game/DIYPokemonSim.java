@@ -26,9 +26,6 @@ public class DIYPokemonSim {
      */
     public static void main(String[] args) {
         try {
-            DIYPokemonFrame frame = new DIYPokemonFrame();
-            frame.setVisible(true);
-
             PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
             System.out.println("Successfully loaded data");
 
@@ -50,6 +47,9 @@ public class DIYPokemonSim {
                     alice.getPokemon("Pikachu"),
                     alice.getPokemon("Gyarados")
             ));
+
+            DIYPokemonFrame frame = new DIYPokemonFrame(alice, alice);
+            frame.setVisible(true);
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }

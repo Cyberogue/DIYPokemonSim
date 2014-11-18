@@ -23,14 +23,14 @@
  */
 package diyps.game;
 
+import diyps.data.Trainer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 /**
  * Extension of JFrame which contains all the data for a basic DIYPokemonSim
@@ -41,59 +41,47 @@ import javax.swing.*;
 public class DIYPokemonFrame extends JFrame {
 
     JTextArea console;
-    JPanel leftTrainer;
-    JPanel rightTrainer;
+    Trainer player1;
+    Trainer player2;
 
-    public DIYPokemonFrame() {
+    public DIYPokemonFrame(Trainer player1, Trainer player2) {
         this.setMinimumSize(new Dimension(1024, 768));
+        this.setPreferredSize(new Dimension(1024, 768));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new GridBagLayout());
+
+        this.player1 = player1;
+        this.player2 = player2;
 
         initializeComponents();
     }
 
     private void initializeComponents() {
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridheight = 2;
-        c.gridwidth = 2;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
         /**
-         * Player 1 *
+         * PLAYER 1
          */
-        leftTrainer = new JPanel();
-        leftTrainer.add(new JLabel("Trainer 1"));
-
-        c.gridx = 0;
-        c.gridy = 0;
-        c.anchor = GridBagConstraints.FIRST_LINE_START;
-        add(leftTrainer, c);
-
+        
+        
         /**
-         * Player 2 *
+         * CONSOLE
          */
-        rightTrainer = new JPanel();
-        rightTrainer.add(new JLabel("Trainer 2"));
-
-        c.gridx = 1;
-        c.gridy = 0;
-        c.anchor = GridBagConstraints.LAST_LINE_START;
-        add(rightTrainer, c);
-
-        /**
-         * CONSOLE *
-         */
-        console = new JTextArea();
-        console.setBorder(BorderFactory.createLoweredBevelBorder());
-        console.setBackground(Color.black);
-        console.setForeground(Color.WHITE);
+        console = new JTextArea(10, 90);
         console.setEditable(false);
-        console.append("Hello World!");
+        console.setWrapStyleWord(true);
+        console.setLineWrap(true);
+        console.setMinimumSize(new Dimension(1024, 768 / 2));
 
-        c.gridx = 0;
-        c.gridy = 1;
-        c.anchor = GridBagConstraints.PAGE_END;
-        c.fill = GridBagConstraints.BOTH;
-        add(console, c);
+        console.append("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weighty = 1;
+        gbc.anchor = GridBagConstraints.PAGE_END;
+
+        add(new JScrollPane(console), gbc);
     }
 }

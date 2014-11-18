@@ -29,10 +29,10 @@ package diyps.data;
  * @author Alice Quiros
  */
 public final class DIYPokemonConstants {
-    /* POKEMON XML PARSING */
 
+    // Pokemon XML Parsing
     public static final String DATA_FILEPATH = "Data/";
-    
+
     // Main node names
     public static final String NAME_NODE = "name";
     public static final String POKEMON_NODE = "pokemon";
@@ -40,17 +40,20 @@ public final class DIYPokemonConstants {
     public static final String ATTRIBUTES_NODE = "attributes";
     public static final String TYPE1_NODE = "type";
     public static final String TYPE2_NODE = "type2";
-    
+
     // These are listed in attributes attributes
     public static final String PK_HEALTH_ATTR = "health";
     public static final String PK_ATTK_ATTR = "attack";
     public static final String PK_DEF_ATTR = "defense";
     public static final String PK_SPD_ATTR = "speed";
-    
 
     // These are listed in move attributes
     public static final String MOV_NAME_ATTR = "name";
     public static final String MOV_TYPE_ATTR = "type";
     public static final String MOV_MODE_ATTR = "mode";
     public static final String MOV_VALUE_ATTR = "value";
+
+    // GUI
+    public static final int OUTER_PADDING = 10;
+    public static final int INNER_PADDING = 10;
 }
