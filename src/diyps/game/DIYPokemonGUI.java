@@ -44,11 +44,6 @@ public class DIYPokemonGUI extends JFrame {
     JTextArea console;
     Trainer player1;
     Trainer player2;
-    JComponent player1Stats;
-    JComponent player2Stats;
-    JComponent player1Options;
-    JComponent player2Options;
-    JButton endTurnButton;
 
     public DIYPokemonGUI(Trainer player1, Trainer player2) {
         this.setMinimumSize(new Dimension(1024, 768));
@@ -62,8 +57,7 @@ public class DIYPokemonGUI extends JFrame {
     }
 
     private void initializeComponents() {
-        this.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        this.setLayout(new BorderLayout());
 
         /**
          * PLAYER 1
@@ -71,17 +65,7 @@ public class DIYPokemonGUI extends JFrame {
         /**
          * ROUND END BUTTON
          */
-        endTurnButton = new JButton(END_TURN_TEXT);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.PAGE_END;
-
-        add(new JScrollPane(endTurnButton), gbc);
+        add(initializeMoveSelectPane(), BorderLayout.EAST);
 
         /**
          * CONSOLE
@@ -94,14 +78,26 @@ public class DIYPokemonGUI extends JFrame {
 
         console.append("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.PAGE_END;
+        add(new JScrollPane(console), BorderLayout.SOUTH);
+    }
 
-        add(new JScrollPane(console), gbc);
+    private JPanel initializeMoveSelectPane() {
+        JPanel root = new JPanel();
+        root.setLayout(new BoxLayout(root, BoxLayout.Y_AXIS));
+        root.setBorder(BorderFactory.createEtchedBorder());
+
+        JComboBox p1ComboBox = new JComboBox();
+        p1ComboBox.setModel(new DefaultComboBoxModel());
+
+        JComboBox p2ComboBox = new JComboBox();
+        p1ComboBox.setModel(new DefaultComboBoxModel());
+
+        root.add(p1ComboBox);
+        root.add(p2ComboBox);
+
+        JButton endTurnButton = new JButton(END_TURN_TEXT);
+        root.add(endTurnButton);
+
+        return root;
     }
 }
