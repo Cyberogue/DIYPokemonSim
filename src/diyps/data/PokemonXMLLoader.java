@@ -46,8 +46,8 @@ public class PokemonXMLLoader {
         dBuilder = dbFactory.newDocumentBuilder();
     }
 
-    public Trainer loadTrainer(String directory) throws Exception {
-        Document doc = dBuilder.parse(new File(directory));
+    public Trainer loadTrainer(String filename) throws Exception {
+        Document doc = dBuilder.parse(new File(DATA_FILEPATH + filename));
         doc.getDocumentElement().normalize();
 
         Node root = doc.getDocumentElement();
@@ -82,7 +82,7 @@ public class PokemonXMLLoader {
         NodeList nodes = basenode.getChildNodes();
         ArrayList<Move> pkMoves = new ArrayList(4);
         Attributes pkAttr = new Attributes();
-        ElementType type1 = ElementType.Unknown;
+        ElementType type1 = ElementType.UNKNOWN;
         ElementType type2 = null;
         String pkName = "MissingNo";
 
@@ -95,10 +95,10 @@ public class PokemonXMLLoader {
                         pkName = node.getTextContent();
                         break;
                     case TYPE1_NODE:
-                        type1 = ElementType.valueOf(node.getTextContent());
+                        type1 = ElementType.valueOf(node.getTextContent().toUpperCase());
                         break;
                     case TYPE2_NODE:
-                        type2 = ElementType.valueOf(node.getTextContent());
+                        type2 = ElementType.valueOf(node.getTextContent().toUpperCase());
                         break;
                     case ATTRIBUTES_NODE: {
                         NamedNodeMap attributes = node.getAttributes();
@@ -112,8 +112,10 @@ public class PokemonXMLLoader {
                     case MOVE_NODE: {
                         NamedNodeMap attributes = node.getAttributes();
                         String movename = attributes.getNamedItem(MOV_NAME_ATTR).getNodeValue();
-                        ElementType movetype = ElementType.valueOf(attributes.getNamedItem(MOV_TYPE_ATTR).getNodeValue());
-                        Move.MoveMode movemode = Move.MoveMode.valueOf(attributes.getNamedItem(MOV_MODE_ATTR).getNodeValue());
+                        ElementType movetype = ElementType.valueOf(
+                                attributes.getNamedItem(MOV_TYPE_ATTR).getNodeValue().toUpperCase());
+                        Move.MoveMode movemode = Move.MoveMode.valueOf(
+                                attributes.getNamedItem(MOV_MODE_ATTR).getNodeValue().toUpperCase());
                         int movevalue = Integer.parseInt(attributes.getNamedItem(MOV_VALUE_ATTR).getNodeValue());
 
                         Move move = new Move(movename, movetype, movemode, movevalue);

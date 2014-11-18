@@ -30,9 +30,9 @@ package diyps.data;
  */
 public enum ElementType {
 
-    Normal, Fighting, Flying, Poison, Ground, 
-    Rock, Bug, Ghost, Steel, Fire, Water, Grass, 
-    Electric, Psychic, Ice, Dragon, Dark, Fairy, Unknown;
+    NORMAL, FIGHTING, FLYING, POISON, GROUND, 
+    ROCK, BUG, GHOST, STEEL, FIRE, WATER, GRASS, 
+    ELECTRIC, PSYCHIC, ICE, DRAGON, DARK, FAIRY, UNKNOWN;
 
     public static final float GENERATION = 6.0f;
 }

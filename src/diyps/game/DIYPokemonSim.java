@@ -5,10 +5,10 @@
  */
 package diyps.game;
 
+import diyps.data.ElementType;
 import diyps.data.PokeCalculator;
 import diyps.data.Pokemon;
 import diyps.data.PokemonXMLLoader;
-import diyps.data.ElementType;
 import diyps.data.Move;
 import diyps.data.Trainer;
 
@@ -26,11 +26,11 @@ public class DIYPokemonSim {
      */
     public static void main(String[] args) {
         try {
-            PokeCalculator.loadTypeDataFromCSV("Data/typeadv.csv", ",");
+            PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
             System.out.println("Successfully loaded data");
 
             PokemonXMLLoader loader = new PokemonXMLLoader();
-            Trainer alice = loader.loadTrainer("Data/pikachu.xml");
+            Trainer alice = loader.loadTrainer("TrainerAlice.xml");
 
             System.out.println(alice);
 
@@ -40,6 +40,10 @@ public class DIYPokemonSim {
                     System.out.println("\t* " + move);
                 }
             }
+
+            System.out.println(alice.getParty().get(0) + " | " + alice.getParty().get(1));
+            System.out.println(PokeCalculator.calculateDamageMultiplier(ElementType.ELECTRIC,
+                    alice.getParty().get(0), alice.getParty().get(1)));
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }

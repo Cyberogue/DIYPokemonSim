@@ -23,6 +23,7 @@
  */
 package diyps.data;
 
+import static diyps.data.DIYPokemonConstants.DATA_FILEPATH;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -50,13 +51,13 @@ public abstract class PokeCalculator {
      * and a single header column, and float values for each of these. Any
      * missing data will be filled in with 1.0
      *
-     * @param directory The location of the CSV file
+     * @param filename The location of the CSV file inside the data folder
      * @param delim The delimiter used in the CSV. By default, most use a comma.
      * @throws IOException When an IO exception occurs
      */
-    public static void loadTypeDataFromCSV(String directory, String delim) throws IOException {
+    public static void loadTypeDataFromCSV(String filename, String delim) throws IOException {
         // Open the file for reading
-        File csvFile = new File(directory);
+        File csvFile = new File(DATA_FILEPATH + filename);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
 
         // Read in the header to know where everything is
@@ -65,7 +66,7 @@ public abstract class PokeCalculator {
 
         String[] values = line.split(delim);
         for (int i = 1; i < values.length; i++) {
-            header.add(ElementType.valueOf(values[i]));
+            header.add(ElementType.valueOf(values[i].toUpperCase()));
         }
 
         EnumMap<ElementType, Map<ElementType, Float>> rows = new EnumMap(ElementType.class);
@@ -73,7 +74,7 @@ public abstract class PokeCalculator {
         for (line = br.readLine(); line != null; line = br.readLine()) {
             values = line.split(delim);
             EnumMap<ElementType, Float> row = new EnumMap(ElementType.class);
-            ElementType rowName = ElementType.valueOf(values[0]);
+            ElementType rowName = ElementType.valueOf(values[0].toUpperCase());
 
             for (int i = 1; i < values.length; i++) {
                 row.put(header.get(i - 1), Float.parseFloat(values[i]));

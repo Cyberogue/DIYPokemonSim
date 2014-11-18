@@ -31,6 +31,8 @@ package diyps.data;
 public final class DIYPokemonConstants {
     /* POKEMON XML PARSING */
 
+    public static final String DATA_FILEPATH = "Data/";
+    
     // Main node names
     public static final String NAME_NODE = "name";
     public static final String POKEMON_NODE = "pokemon";

@@ -65,6 +65,6 @@ public class Move {
 
     public static enum MoveMode {
 
-        Damage, Attack, Attack_Self, Defense, Defense_Self, Speed, Speed_Self
+        DAMAGE, ATTACK, ATTACK_SELF, DEFENSE, DEFENSE_SELF, SPEED, SPEED_SELF
     }
 }
