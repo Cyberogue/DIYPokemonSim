@@ -163,6 +163,51 @@ public class Pokemon {
     }
 
     /**
+     * Returns true if the Pokémon has no health left
+     *
+     * @return true if the Pokémon has no health left
+     */
+    public boolean isDead() {
+        return (attributes.health() <= 0);
+    }
+
+    /**
+     * Returns the current health value
+     *
+     * @return the current health value
+     */
+    public int health() {
+        return attributes.health();
+    }
+
+    /**
+     * Returns the current attack value
+     *
+     * @return the current attack value
+     */
+    public int attack() {
+        return attributes.attack();
+    }
+
+    /**
+     * Returns the current defense value
+     *
+     * @return the current defense value
+     */
+    public int defense() {
+        return attributes.defense();
+    }
+
+    /**
+     * Returns the current speed value
+     *
+     * @return the current speed value
+     */
+    public int speed() {
+        return attributes.speed();
+    }
+
+    /**
      * Returns the number of moves a Pokémon has available
      *
      * @return the number of moves a Pokémon has available

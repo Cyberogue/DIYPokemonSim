@@ -33,7 +33,7 @@ import java.util.List;
  * @author Alice Quiros
  */
 public class Trainer {
-    
+
     private final String name;
     private final List<Pokemon> party;
     private final TrainerInventory inventory;
@@ -86,17 +86,34 @@ public class Trainer {
     public List<Pokemon> getParty() {
         return party;
     }
-    
+
+    /**
+     * Returns the first Pokémon in the party with the provided name
+     *
+     * @param name the name of the Pokémon to retrieve
+     * @return the Pokémon instance corresponding to the name provided. In the
+     * case of multiple Pokémon with the same name, this returns the first
+     * instance. If no instance is found, returns null.
+     */
+    public Pokemon getPokemon(String name) {
+        for (Pokemon pokemon : party) {
+            if (pokemon.name().equals(name)) {
+                return pokemon;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         String s = name + " [";
-        
+
         for (Pokemon pokemon : party) {
             s += pokemon.name().concat(", ");
         }
-        
+
         s += "]";
-        
+
         return s;
     }
 }

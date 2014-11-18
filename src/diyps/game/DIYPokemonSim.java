@@ -26,6 +26,9 @@ public class DIYPokemonSim {
      */
     public static void main(String[] args) {
         try {
+            DIYPokemonFrame frame = new DIYPokemonFrame();
+            frame.setVisible(true);
+
             PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
             System.out.println("Successfully loaded data");
 
@@ -41,9 +44,12 @@ public class DIYPokemonSim {
                 }
             }
 
-            System.out.println(alice.getParty().get(0) + " | " + alice.getParty().get(1));
-            System.out.println(PokeCalculator.calculateDamageMultiplier(ElementType.ELECTRIC,
-                    alice.getParty().get(0), alice.getParty().get(1)));
+            System.out.println(alice.getPokemon("Pikachu") + " | " + alice.getPokemon("Gyarados"));
+            System.out.println(PokeCalculator.calculateDamageMultiplier(
+                    ElementType.ELECTRIC,
+                    alice.getPokemon("Pikachu"),
+                    alice.getPokemon("Gyarados")
+            ));
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }
