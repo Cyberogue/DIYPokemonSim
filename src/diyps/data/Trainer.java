@@ -137,6 +137,21 @@ public class Trainer {
     }
 
     /**
+     * Returns the first Pokémon within the strainers party that has more than 0
+     * health, or null if there are none
+     *
+     * @return a Pokémon that is still alive or null
+     */
+    public Pokemon getFirstUsablePokemon() {
+        for (Pokemon pokemon : party) {
+            if (!pokemon.isDead()) {
+                return pokemon;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Sets the currently withdrawn Pokémon to a new Pokémon
      *
      * @param pokemon the Pokémon to replace the previous one with

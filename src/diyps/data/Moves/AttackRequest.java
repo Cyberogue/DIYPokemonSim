@@ -51,6 +51,14 @@ public class AttackRequest extends MoveRequest {
         this.trainer = trainer;
         this.move = move;
     }
+    
+    public Pokemon getAttacker(){
+        return attacker;
+    }
+    
+    public Move getAttackMove(){
+        return move;
+    }
 
     public short compareSpeed(AttackRequest other) {
         if (this.attacker.speed() > other.attacker.speed()) {

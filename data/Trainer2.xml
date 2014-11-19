@@ -2,23 +2,23 @@
 	<name>Blue</name>
 
 	<pokemon>
-		<name>Pikachu</name>
-		<type>Electric</type>
-		<attributes health='35' attack='55' defense='40' speed='90'></attributes>
-		<move name="Thunder Shock" type="Electric" mode="Damage" value="40"></move>
-		<move name="Growl" type="Normal" mode="Attack" value="-10"></move>
-		<move name="Tail Whip" type="Normal" mode="Defense" value="10"></move>
-		<move name="Quick Attack" type="Normal" mode="Damage" value="40"></move>
+		<name>Charmander</name>
+		<type>Fire</type>
+		<type2>Flying</type2>
+		<attributes health='39' attack='52' defense='43' speed='65'></attributes>
+		<move name="Scratch" type="Normal" mode="Damage" value="40"></move>
+		<move name="Growl" type="Normal" mode="Attack" value="10"></move>
+		<move name="Ember" type="Fire" mode="Damage" value="40"></move>
+		<move name="Fire Fang" type="Fire" mode="Damage" value="65"></move>
 	</pokemon>
 	
 	<pokemon>
-		<name>Gyarados</name>
+		<name>Squirtle</name>
 		<type>Water</type>
-		<type2>Flying</type2>
-		<attributes health='95' attack='125' defense='79' speed='81'></attributes>
-		<move name="Thrash" type="Normal" mode="Damage" value="120"></move>
-		<move name="Bite" type="Dark" mode="Damage" value="60"></move>
-		<move name="Dragon Rage" type="Dragon" mode="Damage" value="40"></move>
-		<move name="Leer" type="Normal" mode="Defense" value="-10"></move>
+		<attributes health='44' attack='48' defense='65' speed='43'></attributes>
+		<move name="Tackle" type="Normal" mode="Damage" value="50"></move>
+		<move name="Tail Whip" type="Normal" mode="Defense" value="10"></move>
+		<move name="Water Gun" type="Water" mode="Damage" value="40"></move>
+		<move name="Bubble" type="Water" mode="Damage" value="40"></move>
 	</pokemon>
 </trainer>

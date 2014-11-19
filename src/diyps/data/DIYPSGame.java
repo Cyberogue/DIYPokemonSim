@@ -88,6 +88,14 @@ public abstract class DIYPSGame {
         onEnd();
     }
 
+    public Trainer getFirstTrainer() {
+        return trainers[0];
+    }
+
+    public Trainer getSecondTrainer() {
+        return trainers[1];
+    }
+
     protected void onStart() {
 
     }

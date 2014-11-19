@@ -67,24 +67,28 @@ public class DIYPSTextGame extends DIYPSGame {
     protected void onLoop() {
         turnNo++;
 
+        Pokemon[] withdrawn = {trainers[0].getWithdrawn(), trainers[1].getWithdrawn()};
+
         out.printBreak();
         out.println("|" + util.center("TURN " + turnNo, PREFERRED_LINE_LENGTH - 2) + "|");
-        out.println("|" + util.center(trainers[0].name() + "'s " + trainers[0].getWithdrawn().name()
+        out.println("|" + util.center(trainers[0].name() + "'s " + withdrawn[0].name()
                 + " VERSUS "
-                + trainers[1].name() + "'s " + trainers[0].getWithdrawn().name(), PREFERRED_LINE_LENGTH - 2) + "|");
-        out.println("|" + util.center("" + turnNo, PREFERRED_LINE_LENGTH - 2) + "|");
+                + trainers[1].name() + "'s " + withdrawn[1].name(), PREFERRED_LINE_LENGTH - 2) + "|");
+        out.println("|" + util.center("", PREFERRED_LINE_LENGTH - 2) + "|");
 
-        String s = trainers[0].getWithdrawn().name() + " ";
-        for (Move move : trainers[0].getWithdrawn().getMoveset()) {
+        String s = withdrawn[0].name() + " ";
+        for (Move move : withdrawn[0].getMoveset()) {
             s += "|" + move.name();
         }
-        out.println("|" + util.center(s + "|", PREFERRED_LINE_LENGTH - 2) + "|");
+        s += "|HP:" + withdrawn[0].health();
+        out.println("|" + util.center(s, PREFERRED_LINE_LENGTH - 2) + "|");
 
-        s = trainers[1].getWithdrawn().name() + " ";
-        for (Move move : trainers[1].getWithdrawn().getMoveset()) {
+        s = withdrawn[1].name() + " ";
+        for (Move move : withdrawn[1].getMoveset()) {
             s += "|" + move.name();
         }
-        out.println("|" + util.center(s + "|", PREFERRED_LINE_LENGTH - 2) + "|");
+        s += "|HP:" + withdrawn[1].health();
+        out.println("|" + util.center(s, PREFERRED_LINE_LENGTH - 2) + "|");
 
         out.printBreak();
 
@@ -95,6 +99,11 @@ public class DIYPSTextGame extends DIYPSGame {
 
         moves.addRequest(request[0]);
         moves.addRequest(request[1]);
+    }
+
+    @Override
+    public void onEnd() {
+        out.println(super.getWinner().name() + " wins the battle!");
     }
 
     private MoveRequest nextMove(Trainer trainer) {

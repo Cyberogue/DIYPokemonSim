@@ -23,9 +23,6 @@
  */
 package diyps.data.Moves;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Class which receives move requests and handles them in the correct order as
  * needed
