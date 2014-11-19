@@ -24,7 +24,6 @@
 package diyps.data;
 
 import diyps.game.*;
-import diyps.data.*;
 import diyps.data.Moves.MoveRequestHandler;
 
 /**
@@ -38,18 +37,16 @@ public abstract class DIYPSGame {
     public final GameLogger out = new GameLogger();
 
     protected final Trainer[] trainers;
-    protected Pokemon[] activePokemon;
     private Trainer winner = null;
-    private MoveRequestHandler mrh;
+    protected MoveRequestHandler moves;
 
     public DIYPSGame() {
         trainers = new Trainer[2];
-        activePokemon = new Pokemon[2];
-        mrh = null;
+        moves = null;
     }
 
     public void setRequestHandler(MoveRequestHandler handler) {
-        this.mrh = handler;
+        this.moves = handler;
     }
 
     public void loadCombatants(String trainer1xml, String trainer2xml) throws Exception {
@@ -59,12 +56,10 @@ public abstract class DIYPSGame {
 
             out.startTask("LOADING TRAINER ONE DATA...");
             trainers[0] = xmlloader.loadTrainer(trainer1xml);
-            activePokemon[0] = trainers[0].getPokemon(0);
             out.completeTask(true);
 
             out.startTask("LOADING TRAINER TWO DATA...");
             trainers[1] = xmlloader.loadTrainer(trainer2xml);
-            activePokemon[1] = trainers[1].getPokemon(0);
             out.completeTask(true);
         } catch (Exception e) {
             out.println(e);
@@ -88,7 +83,7 @@ public abstract class DIYPSGame {
         onStart();
         while (winner == null) {
             onLoop();
-            mrh.handleRequests();
+            moves.handleRequests();
         }
         onEnd();
     }

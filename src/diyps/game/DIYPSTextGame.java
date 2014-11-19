@@ -26,6 +26,9 @@ package diyps.game;
 import diyps.data.Moves.MoveRequest;
 import diyps.data.*;
 import static diyps.data.DIYPokemonConstants.*;
+import diyps.data.Moves.AttackRequest;
+import diyps.data.Moves.DefaultMoveRequestHandler;
+import diyps.data.Moves.SwapRequest;
 
 /**
  * Class containing data and methods related to the central core game
@@ -41,6 +44,7 @@ public class DIYPSTextGame extends DIYPSGame {
 
     public DIYPSTextGame() {
         super();
+        super.setRequestHandler(new DefaultMoveRequestHandler());
         util = new DIYPSUtility(this);
         turnNo = 0;
     }
@@ -66,25 +70,87 @@ public class DIYPSTextGame extends DIYPSGame {
 
         out.printBreak();
         out.println("|" + util.center("TURN " + turnNo, PREFERRED_LINE_LENGTH - 2) + "|");
-        out.println("|" + util.center(trainers[0].name() + "'s " + activePokemon[0].name()
+        out.println("|" + util.center(trainers[0].name() + "'s " + trainers[0].getWithdrawn().name()
                 + " VERSUS "
-                + trainers[1].name() + "'s " + activePokemon[1].name(), PREFERRED_LINE_LENGTH - 2) + "|");
+                + trainers[1].name() + "'s " + trainers[0].getWithdrawn().name(), PREFERRED_LINE_LENGTH - 2) + "|");
+        out.println("|" + util.center("" + turnNo, PREFERRED_LINE_LENGTH - 2) + "|");
+
+        String s = trainers[0].getWithdrawn().name() + " ";
+        for (Move move : trainers[0].getWithdrawn().getMoveset()) {
+            s += "|" + move.name();
+        }
+        out.println("|" + util.center(s + "|", PREFERRED_LINE_LENGTH - 2) + "|");
+
+        s = trainers[1].getWithdrawn().name() + " ";
+        for (Move move : trainers[1].getWithdrawn().getMoveset()) {
+            s += "|" + move.name();
+        }
+        out.println("|" + util.center(s + "|", PREFERRED_LINE_LENGTH - 2) + "|");
+
         out.printBreak();
 
-        out.println("What will " + trainers[0].name() + " do?");
+        MoveRequest request[] = new MoveRequest[2];
 
-        MoveRequest p1Move;
-        while ((p1Move = parseMove(util.input().nextLine().split(QUOTES_IGNORE_REGEX))) == null) {
-            System.out.println("Error parsing input for " + trainers[0].name());
-        }
+        request[0] = nextMove(trainers[0]);
+        request[1] = nextMove(trainers[1]);
+
+        moves.addRequest(request[0]);
+        moves.addRequest(request[1]);
     }
 
-    private MoveRequest parseMove(String[] args) {
-        for (String arg : args) {
-            arg = arg.replace("\"", "");
-            System.out.println(arg);
+    private MoveRequest nextMove(Trainer trainer) {
+        out.println("What will " + trainer.name() + " do?");
+
+        MoveRequest req = null;
+        Pokemon withdrawn = trainer.getWithdrawn();
+        int index;
+
+        while (req == null) {
+            String input = util.input().nextLine();
+            String[] tokens = input.split("\\s+");
+
+            if (tokens.length < 2) {
+                out.println("Not enough parameters");
+                continue;
+            }
+
+            try {
+                index = Integer.parseInt(tokens[1]);
+
+                switch (tokens[0].toLowerCase()) {
+                    case "attack":
+                    case "a":
+                    case "-a":
+                        if (index >= withdrawn.getMoveset().size() || index < 0) {
+                            out.println("Error parsing move data: move of index " + index);
+                            break;
+                        }
+                        req = new AttackRequest(trainer, withdrawn, withdrawn.getMove(index));
+                        return req;
+                    case "swap":
+                    case "s":
+                    case "-s":
+                        if (index >= trainer.getParty().size() || index < 0) {
+                            out.println("Error parsing move data: no Pokemon of index " + index);
+                            break;
+                        }
+                        if (trainer.getPokemon(index) == withdrawn) {
+                            out.println("Can't swap out for the same pokemon!");
+                            break;
+                        }
+                        req = new SwapRequest(trainer, trainer.getPokemon(index));
+                        return req;
+                    default:
+                        out.println("Unknown identifier " + tokens[0]);
+                        break;
+                }
+            } catch (NumberFormatException e) {
+                out.println("Error parsing move data");
+            }
+
+            out.flushAll();
         }
 
-        return null;
+        return req;
     }
 }

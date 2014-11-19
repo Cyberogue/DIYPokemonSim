@@ -24,6 +24,7 @@
 package diyps.game;
 
 import diyps.data.DIYPSGame;
+import static diyps.data.DIYPokemonConstants.RESPONSE_MARKER;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;

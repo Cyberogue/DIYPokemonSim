@@ -60,6 +60,6 @@ public class SwapRequest extends MoveRequest {
 
     @Override
     public String toString() {
-        return trainer.name() + '[' + "<= " + replacement.name() + ']';
+        return trainer.name() + " [<= " + replacement.name() + ']';
     }
 }

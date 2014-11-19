@@ -44,6 +44,7 @@ public class Pokemon {
     /**
      * Default constructor for a two-type Pokémon
      *
+     * @param trainer the Pokémon's owner
      * @param name The name of the Pokémon
      * @param initHp The starting health
      * @param initAttk the starting attack value
@@ -65,6 +66,7 @@ public class Pokemon {
     /**
      * Default constructor for a single-type Pokémon
      *
+     * @param trainer the Pokémon's owner
      * @param name The name of the Pokémon
      * @param initHp The starting health
      * @param initAttk the starting attack value
@@ -235,6 +237,22 @@ public class Pokemon {
      */
     public Move getMove(int index) {
         return moveset.get(index);
+    }
+
+    /**
+     * Returns the move within the moveset with the corresponding name (not case
+     * sensitive)
+     *
+     * @param name the name of the move
+     * @return a move with the corresponding name, or null if none
+     */
+    public Move getMove(String name) {
+        for (Move move : moveset) {
+            if (move.name().toLowerCase().equals(name.toLowerCase())) {
+                return move;
+            }
+        }
+        return null;
     }
 
     /**

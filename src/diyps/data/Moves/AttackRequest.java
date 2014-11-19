@@ -34,7 +34,6 @@ import diyps.data.Trainer;
  */
 public class AttackRequest extends MoveRequest {
 
-    private AttackRecord moveRecord;
     private Pokemon attacker;
     private Move move;
 
@@ -53,8 +52,19 @@ public class AttackRequest extends MoveRequest {
         this.move = move;
     }
 
+    public short compareSpeed(AttackRequest other) {
+        if (this.attacker.speed() > other.attacker.speed()) {
+            return 1;
+        } else if (this.attacker.speed() < other.attacker.speed()) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
     @Override
     public String toString() {
-        return trainer.name() + '[' + moveRecord.attacker().name() + ":" + moveRecord.move().name() + ']';
+        return trainer.name() + " [" + attacker.name() + ":" + move.name() + ']';
     }
+
 }

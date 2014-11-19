@@ -32,25 +32,9 @@ import java.util.List;
  *
  * @author Alice Quiros
  */
-public abstract class MoveRequestHandler {
+public interface MoveRequestHandler {
 
-    protected final List<MoveRequest> priorityPhase;
-    protected final List<MoveRequest> battlePhase;
-    protected final List<MoveRequest> attackPhase;
-
-    public MoveRequestHandler() {
-        battlePhase = new ArrayList(2);
-        attackPhase = new ArrayList(2);
-        priorityPhase = new ArrayList(2);
-    }
-
-    public void addRequest(MoveRequest request) {
-        if (request.type.equals(MoveRequest.Type.FIGHT)) {
-            priorityPhase.add(request);
-        } else {
-            battlePhase.add(request);
-        }
-    }
+    public abstract void addRequest(MoveRequest request);
 
     public abstract void handleRequests();
 }

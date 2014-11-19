@@ -78,6 +78,18 @@ public class GameLogger {
         print(o.toString());
     }
 
+    public void printNew() {
+        print(RESPONSE_MARKER);
+    }
+
+    public void printNew(String s) {
+        print(RESPONSE_MARKER + s);
+    }
+
+    public void printNew(Object o) {
+        print(RESPONSE_MARKER + o.toString());
+    }
+
     public void println() {
         print(RESPONSE_MARKER + '\n');
     }
@@ -133,6 +145,12 @@ public class GameLogger {
     public void closeAll() {
         for (PrintStream ps : streams) {
             ps.close();
+        }
+    }
+
+    public void flushAll() {
+        for (PrintStream ps : streams) {
+            ps.flush();
         }
     }
 

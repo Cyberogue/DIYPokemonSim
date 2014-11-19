@@ -37,6 +37,7 @@ public class Trainer {
     private final String name;
     private final List<Pokemon> party;
     private final TrainerInventory inventory;
+    private Pokemon withdrawn;
 
     /**
      * Basic constructor for a trainer without Pokémon :(
@@ -47,6 +48,7 @@ public class Trainer {
         this.name = name;
         this.party = new ArrayList();
         this.inventory = new TrainerInventory();
+        withdrawn = null;
     }
 
     /**
@@ -58,6 +60,7 @@ public class Trainer {
     public Trainer(String name, List<Pokemon> party) {
         this(name);
         this.party.addAll(party);
+        withdrawn = this.party.get(0);
     }
 
     /**
@@ -75,6 +78,9 @@ public class Trainer {
      * @param pokemon the Pokémon to add to the party
      */
     protected void addToParty(Pokemon pokemon) {
+        if (withdrawn == null) {
+            withdrawn = pokemon;
+        }
         party.add(pokemon);
     }
 
@@ -128,6 +134,28 @@ public class Trainer {
             }
         }
         return false;
+    }
+
+    /**
+     * Sets the currently withdrawn Pokémon to a new Pokémon
+     *
+     * @param pokemon the Pokémon to replace the previous one with
+     * @return the recalled Pokémon, or null if none
+     */
+    public Pokemon withdrawPokemon(Pokemon pokemon) {
+        Pokemon old = withdrawn;
+        withdrawn = pokemon;
+
+        return old;
+    }
+
+    /**
+     * Returns the currently withdrawn Pokémon belonging to the trainer
+     *
+     * @return the currently withdrawn Pokémon belonging to the trainer
+     */
+    public Pokemon getWithdrawn() {
+        return withdrawn;
     }
 
     @Override
