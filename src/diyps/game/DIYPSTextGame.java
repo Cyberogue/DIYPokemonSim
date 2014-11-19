@@ -27,7 +27,6 @@ import diyps.data.Moves.MoveRequest;
 import diyps.data.*;
 import static diyps.data.DIYPokemonConstants.*;
 import diyps.data.Moves.AttackRequest;
-import diyps.data.Moves.DefaultMoveRequestHandler;
 import diyps.data.Moves.SwapRequest;
 
 /**
@@ -38,13 +37,13 @@ import diyps.data.Moves.SwapRequest;
  */
 public class DIYPSTextGame extends DIYPSGame {
 
-    private final DIYPSUtility util;
+    protected final DIYPSUtility util;
 
     private int turnNo;
 
     public DIYPSTextGame() {
         super();
-        super.setRequestHandler(new DefaultMoveRequestHandler());
+        super.setRequestHandler(new TextMoveRequestHandler(this));
         util = new DIYPSUtility(this);
         turnNo = 0;
     }
