@@ -21,48 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package diyps.data;
+package diyps.data.Moves;
+
+import diyps.data.AttackRecord;
+import diyps.data.Move;
+import diyps.data.Pokemon;
+import diyps.data.Trainer;
 
 /**
- * Class containing the data for a move during which a trainer swapped Pokémon
  *
  * @author Alice Quiros
  */
-public class SwapMoveRecord extends MoveRecord {
+public class AttackRequest extends MoveRequest {
 
-    private Pokemon fielded;
-    private Pokemon replacement;
+    private AttackRecord moveRecord;
+    private Pokemon attacker;
+    private Move move;
 
     /**
      * Basic constructor
      *
-     * @param trainer the Pokémon's trainer
-     * @param fielded the Pokémon that was out on the battle field
-     * @param replacement the Pokémon that would be replacing the fielded
-     * Pokémon
+     * @param trainer the trainer who initiated the move
+     * @param attacker the attacking Pokémon
+     * @param defender the defending Pokémon
+     * @param move the move used by the attacker r
      */
-    public SwapMoveRecord(Trainer trainer, Pokemon fielded, Pokemon replacement) {
-        this.type = MoveRecord.Type.SWAP;
+    public AttackRequest(Trainer trainer, Pokemon attacker, Move move) {
+        this.type = MoveRequest.Type.FIGHT;
+        this.attacker = attacker;
         this.trainer = trainer;
-        this.fielded = fielded;
-        this.replacement = replacement;
+        this.move = move;
     }
 
-    /**
-     * Returns the Pokémon that was previously on the battlefield
-     *
-     * @return the Pokémon that was previously on the battlefield
-     */
-    public Pokemon oldPokemon() {
-        return fielded;
-    }
-
-    /**
-     * Returns the Pokémon replacing the previous one
-     *
-     * @return the Pokémon replacing the previous one
-     */
-    public Pokemon newPokemon() {
-        return replacement;
+    @Override
+    public String toString() {
+        return trainer.name() + '[' + moveRecord.attacker().name() + ":" + moveRecord.move().name() + ']';
     }
 }

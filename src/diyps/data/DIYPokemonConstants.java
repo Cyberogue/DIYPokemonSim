@@ -77,4 +77,6 @@ public final class DIYPokemonConstants {
     public static final char LINEBREAK_CHAR = '-';
     public static final int PREFERRED_LINE_LENGTH = 64;
 
+    public static final String QUOTES_IGNORE_REGEX = "\\s+(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)"; // WTF IS THIS SHIT
+
 }

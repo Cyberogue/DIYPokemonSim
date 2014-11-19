@@ -30,8 +30,8 @@ package diyps.data;
  */
 public enum ElementType {
 
-    NORMAL, FIGHTING, FLYING, POISON, GROUND, 
-    ROCK, BUG, GHOST, STEEL, FIRE, WATER, GRASS, 
+    NORMAL, FIGHTING, FLYING, POISON, GROUND,
+    ROCK, BUG, GHOST, STEEL, FIRE, WATER, GRASS,
     ELECTRIC, PSYCHIC, ICE, DRAGON, DARK, FAIRY, UNKNOWN;
 
     public static final float GENERATION = 6.0f;

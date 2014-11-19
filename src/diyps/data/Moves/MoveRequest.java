@@ -21,7 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package diyps.data;
+package diyps.data.Moves;
+
+import diyps.data.Trainer;
 
 /**
  * An abstract class containing data about everything a trainer can do for their
@@ -29,7 +31,7 @@ package diyps.data;
  *
  * @author Alice Quiros
  */
-public abstract class MoveRecord {
+public abstract class MoveRequest {
 
     protected Type type;
     protected Trainer trainer;
@@ -50,6 +52,11 @@ public abstract class MoveRecord {
      */
     public Type type() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return trainer.name() + '[' + type.name() + ']';
     }
 
     /**

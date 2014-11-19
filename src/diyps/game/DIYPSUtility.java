@@ -23,8 +23,7 @@
  */
 package diyps.game;
 
-import diyps.data.Pokemon;
-import diyps.data.Trainer;
+import diyps.data.DIYPSGame;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;

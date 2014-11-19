@@ -21,10 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package diyps.game;
+package diyps.data;
 
+import diyps.game.*;
 import diyps.data.*;
-import static diyps.data.DIYPokemonConstants.*;
+import diyps.data.Moves.MoveRequestHandler;
 
 /**
  * Class containing data and methods related to the central core game
@@ -32,22 +33,23 @@ import static diyps.data.DIYPokemonConstants.*;
  *
  * @author Alice Quiros
  */
-public class DIYPSGame {
+public abstract class DIYPSGame {
 
-    protected final GameLogger out = new GameLogger();
-    private final DIYPSUtility util;
+    public final GameLogger out = new GameLogger();
 
-    private final Trainer[] trainers;
-    private Pokemon[] activePokemon;
+    protected final Trainer[] trainers;
+    protected Pokemon[] activePokemon;
     private Trainer winner = null;
-
-    private int turnNo;
+    private MoveRequestHandler mrh;
 
     public DIYPSGame() {
         trainers = new Trainer[2];
         activePokemon = new Pokemon[2];
-        util = new DIYPSUtility(this);
-        turnNo = 0;
+        mrh = null;
+    }
+
+    public void setRequestHandler(MoveRequestHandler handler) {
+        this.mrh = handler;
     }
 
     public void loadCombatants(String trainer1xml, String trainer2xml) throws Exception {
@@ -70,39 +72,34 @@ public class DIYPSGame {
         }
     }
 
-    public void start() {
-        out.printBreak();
-        out.println("LOADED TRAINER DATA: ");
-        out.println("\t" + trainers[0].name());
-        for (Pokemon p : trainers[0].getParty()) {
-            out.println("\t * " + p.toString());
-        }
-
-        out.println("\t" + trainers[1].name());
-        for (Pokemon p : trainers[1].getParty()) {
-            out.println("\t * " + p.toString());
-        }
-
-        mainLoop();
+    public boolean hasWinner() {
+        return (winner != null);
     }
 
-    private void mainLoop() {
+    public Trainer getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Trainer trainer) {
+        this.winner = trainer;
+    }
+
+    public final void start() {
+        onStart();
         while (winner == null) {
-            newTurn();
+            onLoop();
+            mrh.handleRequests();
         }
+        onEnd();
     }
 
-    private void newTurn() {
-        out.printBreak();
-        out.println("|" + util.center("TURN " + turnNo, PREFERRED_LINE_LENGTH - 2) + "|");
-        out.println("|" + util.center(trainers[0].name() + "'s " + activePokemon[0].name()
-                + " VERSUS "
-                + trainers[1].name() + "'s " + activePokemon[1].name(), PREFERRED_LINE_LENGTH - 2) + "|");
-        out.printBreak();
+    protected void onStart() {
 
-        out.println("What will " + trainers[0].name() + " do?");
-        String input = util.input().nextLine();
+    }
 
-        turnNo++;
+    protected abstract void onLoop();
+
+    protected void onEnd() {
+
     }
 }

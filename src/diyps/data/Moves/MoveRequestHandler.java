@@ -21,43 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package diyps.data.Moves;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * Class which receives move requests and handles them in the correct order as
+ * needed
  *
  * @author Alice Quiros
  */
-package diyps.game;
+public abstract class MoveRequestHandler {
 
-import diyps.data.PokeCalculator;
-import static diyps.data.DIYPokemonConstants.*;
-import java.io.IOException;
+    protected final List<MoveRequest> priorityPhase;
+    protected final List<MoveRequest> battlePhase;
+    protected final List<MoveRequest> attackPhase;
 
-/**
- * Class containing the main entry point for the program
- *
- * @author Rogue <Alice Q.>
- */
-public class DIYPSProgram {
+    public MoveRequestHandler() {
+        battlePhase = new ArrayList(2);
+        attackPhase = new ArrayList(2);
+        priorityPhase = new ArrayList(2);
+    }
 
-    /**
-     * DIYPokemonSim entry point for the program
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        DIYPSTextGame game = new DIYPSTextGame();;
-        try {
-            game.out.println("GAME START");
-            game.loadCombatants(TRAINER1_FILE, TRAINER2_FILE);
-
-            game.out.startTask("LOADING TYPE DATA...");
-            PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
-            game.out.completeTask(true);
-
-            game.start();
-        } catch (Exception e) {
-            game.out.completeTask(false);
-            game.out.println(e);
-            e.printStackTrace();
+    public void addRequest(MoveRequest request) {
+        if (request.type.equals(MoveRequest.Type.FIGHT)) {
+            priorityPhase.add(request);
+        } else {
+            battlePhase.add(request);
         }
     }
+
+    public abstract void handleRequests();
 }

@@ -21,36 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package diyps.data;
+package diyps.data.Moves;
+
+import diyps.data.Pokemon;
+import diyps.data.Trainer;
 
 /**
+ * Class containing the data for a move during which a trainer swapped Pokémon
  *
  * @author Alice Quiros
  */
-public class FightMoveRecord extends MoveRecord {
+public class SwapRequest extends MoveRequest {
 
-    private AttackRecord moveRecord;
-
-    /**
-     * Default constructor
-     *
-     * @param trainer the trainer who initiated the move
-     * @param moveRecord the exchange of the move between the two Pokémon
-     */
-    public FightMoveRecord(Trainer trainer, AttackRecord moveRecord) {
-        this.type = MoveRecord.Type.FIGHT;
-        this.trainer = trainer;
-    }
+    private Pokemon replacement;
 
     /**
      * Basic constructor
      *
-     * @param trainer the trainer who initiated the move
-     * @param attacker the attacking Pokémon
-     * @param defender the defending Pokémon
-     * @param move the move used by the attacker r
+     * @param trainer the Pokémon's trainer
+     * @param fielded the Pokémon that was out on the battle field
+     * @param replacement the Pokémon that would be replacing the fielded
+     * Pokémon
      */
-    public FightMoveRecord(Trainer trainer, Pokemon attacker, Pokemon defender, Move move) {
-        this(trainer, new AttackRecord(move, attacker, defender));
+    public SwapRequest(Trainer trainer, Pokemon replacement) {
+        this.type = MoveRequest.Type.SWAP;
+        this.trainer = trainer;
+        this.replacement = replacement;
+    }
+
+    /**
+     * Returns the Pokémon replacing the previous one
+     *
+     * @return the Pokémon replacing the previous one
+     */
+    public Pokemon newPokemon() {
+        return replacement;
+    }
+
+    @Override
+    public String toString() {
+        return trainer.name() + '[' + "<= " + replacement.name() + ']';
     }
 }

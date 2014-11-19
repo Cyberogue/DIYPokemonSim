@@ -21,13 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-package diyps.data;
+package diyps.data.Moves;
 
 /**
  *
  * @author Alice Quiros
  */
-public class ItemMoveRecord {
-    
+public class ItemRequest {
+
 }
