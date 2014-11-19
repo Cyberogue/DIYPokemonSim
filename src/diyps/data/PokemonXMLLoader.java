@@ -54,7 +54,6 @@ public class PokemonXMLLoader {
         NodeList nodes = root.getChildNodes();
 
         Trainer trainer = null;
-        ArrayList party = new ArrayList();
 
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
@@ -66,6 +65,9 @@ public class PokemonXMLLoader {
                         trainer = new Trainer(node.getTextContent());
                         break;
                     case POKEMON_NODE:
+                        if (trainer == null) {
+                            continue;
+                        }
                         trainer.addToParty(loadPokemon(node));
                         break;
                     default:

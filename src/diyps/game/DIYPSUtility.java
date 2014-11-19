@@ -21,50 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package diyps.data;
+package diyps.game;
+
+import java.util.Locale;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
- * Class containing data regarding a move
  *
  * @author Alice Quiros
  */
-public class Move {
+public class DIYPSUtility {
 
-    private String name;
-    private ElementType movetype;
-    private MoveMode movemode;
-    private int value;
+    private Random random;
+    private Scanner input;
 
-    public Move(String name, ElementType movetype, MoveMode movemode, int value) {
-        this.name = name;
-        this.movetype = movetype;
-        this.movemode = movemode;
-        this.value = value;
+    public DIYPSUtility() {
+        random = new Random();
+        input = new Scanner(System.in);
     }
 
-    public String name() {
-        return name;
+    public Random random() {
+        return random;
     }
 
-    public ElementType type() {
-        return movetype;
+    public Object random(Object[] obj) {
+        return obj[random.nextInt(obj.length)];
     }
 
-    public MoveMode mode() {
-        return movemode;
+    public Scanner input() {
+        return input;
     }
 
-    public int value() {
-        return value;
-    }
+    public String scanFor(String retryMessage, String[] valid) {
+        String s;
 
-    @Override
-    public String toString() {
-        return "[" + name + ", " + movetype + ", " + value + " " + movemode + "]";
-    }
+        while (true) {
+            s = input.nextLine();
 
-    public static enum MoveMode {
+            for (String v : valid) {
+                if (s.toLowerCase(Locale.UK).equals(v.toLowerCase(Locale.UK))) {
+                    return s;
+                }
+            }
 
-        DAMAGE, ATTACK, ATTACK_SELF, DEFENSE, DEFENSE_SELF, SPEED, SPEED_SELF
+            System.out.println(retryMessage);
+        }
     }
 }

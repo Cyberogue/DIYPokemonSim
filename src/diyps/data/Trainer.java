@@ -57,7 +57,7 @@ public class Trainer {
      */
     public Trainer(String name, List<Pokemon> party) {
         this(name);
-        party.addAll(party);
+        this.party.addAll(party);
     }
 
     /**
@@ -104,12 +104,38 @@ public class Trainer {
         return null;
     }
 
+    /**
+     * Returns the Pokémon with the specified index in the party
+     *
+     * @param index the index of the Pokémon
+     * @return the Pokémon with the specified index in the party
+     */
+    public Pokemon getPokemon(int index) {
+        return party.get(index);
+    }
+
+    /**
+     * Returns false if at least one Pokémon in the trainer's party has more
+     * than 0 health
+     *
+     * @return false if at least one Pokémon in the tTrainer's party has more
+     * than 0 health
+     */
+    public boolean noUsablePokemon() {
+        for (Pokemon pokemon : party) {
+            if (!pokemon.isDead()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         String s = name + " [";
 
         for (Pokemon pokemon : party) {
-            s += pokemon.name().concat(", ");
+            s = s.concat(pokemon.name() + ", ");
         }
 
         s += "]";

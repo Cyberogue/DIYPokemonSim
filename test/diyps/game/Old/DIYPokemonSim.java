@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diyps.game;
+package diyps.game.Old;
 
 import diyps.data.ElementType;
 import diyps.data.PokeCalculator;
@@ -30,31 +30,19 @@ public class DIYPokemonSim {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
+        try {/**
             PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
             System.out.println("Successfully loaded data");
-            
+
             PokemonXMLLoader loader = new PokemonXMLLoader();
-            Trainer alice = loader.loadTrainer("TrainerAlice.xml");
+            Trainer trainer1 = loader.loadTrainer("Trainer1.xml");
+            Trainer trainer2 = loader.loadTrainer("Trainer2.xml");
+
+            DIYPokemonGame game = new DIYPokemonGame(trainer1, trainer2);
+            DIYPokemonGUI frame = new DIYPokemonGUI(game, trainer1, trainer2);
             
-            System.out.println(alice);
-            
-            for (Pokemon pokemon : alice.getParty()) {
-                System.out.println("* " + pokemon);
-                for (Move move : pokemon.getMoveset()) {
-                    System.out.println("\t* " + move);
-                }
-            }
-            
-            System.out.println(alice.getPokemon("Pikachu") + " | " + alice.getPokemon("Gyarados"));
-            System.out.println(PokeCalculator.calculateDamageMultiplier(
-                    ElementType.ELECTRIC,
-                    alice.getPokemon("Pikachu"),
-                    alice.getPokemon("Gyarados")
-            ));
-            
-            DIYPokemonGUI frame = new DIYPokemonGUI(alice, alice);
-            frame.setVisible(true);
+            game.setGUI(frame);
+            frame.setVisible(true);**/
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }

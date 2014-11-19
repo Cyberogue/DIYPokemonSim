@@ -21,50 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package diyps.data;
+package diyps.game.Old;
+
+import static diyps.data.DIYPokemonConstants.IMAGE_FILEPATH;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 /**
- * Class containing data regarding a move
  *
  * @author Alice Quiros
  */
-public class Move {
+public class JBackgroundPanel extends JPanel {
 
-    private String name;
-    private ElementType movetype;
-    private MoveMode movemode;
-    private int value;
+    private BufferedImage bg;
 
-    public Move(String name, ElementType movetype, MoveMode movemode, int value) {
-        this.name = name;
-        this.movetype = movetype;
-        this.movemode = movemode;
-        this.value = value;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public ElementType type() {
-        return movetype;
-    }
-
-    public MoveMode mode() {
-        return movemode;
-    }
-
-    public int value() {
-        return value;
+    public JBackgroundPanel(String background) {
+        try {
+            bg = ImageIO.read(new File(background));
+        } catch (IOException e) {
+            bg = null;
+        }
     }
 
     @Override
-    public String toString() {
-        return "[" + name + ", " + movetype + ", " + value + " " + movemode + "]";
-    }
+    protected void paintComponent(Graphics g) {
 
-    public static enum MoveMode {
-
-        DAMAGE, ATTACK, ATTACK_SELF, DEFENSE, DEFENSE_SELF, SPEED, SPEED_SELF
+        super.paintComponent(g);
+        g.drawImage(bg, 0, 0, super.getWidth(), super.getHeight(), null);
     }
 }

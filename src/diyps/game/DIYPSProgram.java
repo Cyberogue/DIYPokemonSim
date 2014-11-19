@@ -21,50 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package diyps.data;
-
 /**
- * Class containing data regarding a move
  *
  * @author Alice Quiros
  */
-public class Move {
+package diyps.game;
 
-    private String name;
-    private ElementType movetype;
-    private MoveMode movemode;
-    private int value;
+import diyps.data.PokeCalculator;
+import static diyps.data.DIYPokemonConstants.*;
+import java.io.IOException;
 
-    public Move(String name, ElementType movetype, MoveMode movemode, int value) {
-        this.name = name;
-        this.movetype = movetype;
-        this.movemode = movemode;
-        this.value = value;
-    }
+/**
+ * Class containing the main entry point for the program
+ *
+ * @author Rogue <Alice Q.>
+ */
+public class DIYPSProgram {
 
-    public String name() {
-        return name;
-    }
+    /**
+     * DIYPokemonSim entry point for the program
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
 
-    public ElementType type() {
-        return movetype;
-    }
+        try {
+            DIYPSGame.out.println("GAME START");
+            DIYPSGame game = new DIYPSGame(TRAINER1_FILE, TRAINER2_FILE);
+            game.loadCombatants(TRAINER1_FILE, TRAINER2_FILE);
 
-    public MoveMode mode() {
-        return movemode;
-    }
+            DIYPSGame.out.startTask("LOADING TYPE DATA...");
+            PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
+            DIYPSGame.out.completeTask(true);
 
-    public int value() {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + name + ", " + movetype + ", " + value + " " + movemode + "]";
-    }
-
-    public static enum MoveMode {
-
-        DAMAGE, ATTACK, ATTACK_SELF, DEFENSE, DEFENSE_SELF, SPEED, SPEED_SELF
+            game.start();
+        } catch (Exception e) {
+            DIYPSGame.out.completeTask(false);
+            DIYPSGame.out.println(e);
+            e.printStackTrace();
+        }
     }
 }

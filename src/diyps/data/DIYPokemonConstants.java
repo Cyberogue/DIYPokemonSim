@@ -30,8 +30,18 @@ package diyps.data;
  */
 public final class DIYPokemonConstants {
 
-    // Pokemon XML Parsing
-    public static final String DATA_FILEPATH = "Data/";
+    // File handling
+    public static final String TRAINER1_FILE = "Trainer1.xml";
+    public static final String TRAINER2_FILE = "Trainer2.xml";
+
+    public static final String LOG_FILE = "pokemon.log";
+
+    public static final String DATA_FILEPATH = "data/";
+    public static final String IMAGE_FILEPATH = "img/";
+
+    // IMAGE LOCATIONS
+    public static final String BATTLE_BACKGROUND_IMAGE = "battlebackground.png";
+    public static final String PROGRAM_ICON_IMAGE = "pokeball.png";
 
     // Main node names
     public static final String NAME_NODE = "name";
@@ -56,5 +66,9 @@ public final class DIYPokemonConstants {
     // GUI
     public static final int OUTER_PADDING = 10;
     public static final int INNER_PADDING = 10;
+
+    public static final String FIGHT_SELECT_TEXT = "Fight";
+    public static final String SWITCH_SELECT_TEXT = "Swap";
+    public static final String ITEM_SELECT_TEXT = "Item";
     public static final String END_TURN_TEXT = "End Turn";
 }
