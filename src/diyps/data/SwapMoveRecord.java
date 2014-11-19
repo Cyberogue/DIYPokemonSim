@@ -24,17 +24,45 @@
 package diyps.data;
 
 /**
- * Class representing everything a trainer can have in their inventory
+ * Class containing the data for a move during which a trainer swapped Pokémon
  *
  * @author Alice Quiros
  */
-public class TrainerInventory {
+public class SwapMoveRecord extends MoveRecord {
 
-    private int potions;
-    private int maxPotions;
+    private Pokemon fielded;
+    private Pokemon replacement;
 
-    public TrainerInventory() {
-        potions = 0;
-        maxPotions = 0;
+    /**
+     * Basic constructor
+     *
+     * @param trainer the Pokémon's trainer
+     * @param fielded the Pokémon that was out on the battle field
+     * @param replacement the Pokémon that would be replacing the fielded
+     * Pokémon
+     */
+    public SwapMoveRecord(Trainer trainer, Pokemon fielded, Pokemon replacement) {
+        this.type = MoveRecord.Type.SWAP;
+        this.trainer = trainer;
+        this.fielded = fielded;
+        this.replacement = replacement;
+    }
+
+    /**
+     * Returns the Pokémon that was previously on the battlefield
+     *
+     * @return the Pokémon that was previously on the battlefield
+     */
+    public Pokemon oldPokemon() {
+        return fielded;
+    }
+
+    /**
+     * Returns the Pokémon replacing the previous one
+     *
+     * @return the Pokémon replacing the previous one
+     */
+    public Pokemon newPokemon() {
+        return replacement;
     }
 }

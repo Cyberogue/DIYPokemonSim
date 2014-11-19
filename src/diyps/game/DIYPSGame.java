@@ -24,6 +24,7 @@
 package diyps.game;
 
 import diyps.data.*;
+import static diyps.data.DIYPokemonConstants.*;
 
 /**
  * Class containing data and methods related to the central core game
@@ -33,14 +34,20 @@ import diyps.data.*;
  */
 public class DIYPSGame {
 
-    public final static GameLogger out = new GameLogger();
+    protected final GameLogger out = new GameLogger();
+    private final DIYPSUtility util;
 
-    private Trainer[] trainers;
+    private final Trainer[] trainers;
     private Pokemon[] activePokemon;
+    private Trainer winner = null;
 
-    public DIYPSGame(String trainer1xml, String trainer2xml) {
+    private int turnNo;
+
+    public DIYPSGame() {
         trainers = new Trainer[2];
         activePokemon = new Pokemon[2];
+        util = new DIYPSUtility(this);
+        turnNo = 0;
     }
 
     public void loadCombatants(String trainer1xml, String trainer2xml) throws Exception {
@@ -50,18 +57,21 @@ public class DIYPSGame {
 
             out.startTask("LOADING TRAINER ONE DATA...");
             trainers[0] = xmlloader.loadTrainer(trainer1xml);
+            activePokemon[0] = trainers[0].getPokemon(0);
             out.completeTask(true);
 
             out.startTask("LOADING TRAINER TWO DATA...");
             trainers[1] = xmlloader.loadTrainer(trainer2xml);
+            activePokemon[1] = trainers[1].getPokemon(0);
             out.completeTask(true);
         } catch (Exception e) {
-            DIYPSGame.out.println(e);
+            out.println(e);
             throw e;
         }
     }
 
     public void start() {
+        out.printBreak();
         out.println("LOADED TRAINER DATA: ");
         out.println("\t" + trainers[0].name());
         for (Pokemon p : trainers[0].getParty()) {
@@ -73,10 +83,26 @@ public class DIYPSGame {
             out.println("\t * " + p.toString());
         }
 
-        out.println("------------------------------------------");
+        mainLoop();
     }
 
     private void mainLoop() {
+        while (winner == null) {
+            newTurn();
+        }
+    }
 
+    private void newTurn() {
+        out.printBreak();
+        out.println("|" + util.center("TURN " + turnNo, PREFERRED_LINE_LENGTH - 2) + "|");
+        out.println("|" + util.center(trainers[0].name() + "'s " + activePokemon[0].name()
+                + " VERSUS "
+                + trainers[1].name() + "'s " + activePokemon[1].name(), PREFERRED_LINE_LENGTH - 2) + "|");
+        out.printBreak();
+
+        out.println("What will " + trainers[0].name() + " do?");
+        String input = util.input().nextLine();
+
+        turnNo++;
     }
 }

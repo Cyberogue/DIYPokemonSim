@@ -23,6 +23,7 @@
  */
 package diyps.game;
 
+import static diyps.data.DIYPokemonConstants.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -78,15 +79,15 @@ public class GameLogger {
     }
 
     public void println() {
-        print('\n');
+        print(RESPONSE_MARKER + '\n');
     }
 
     public void println(Object o) {
-        print(o.toString() + '\n');
+        print(RESPONSE_MARKER + o.toString() + '\n');
     }
 
     public void println(String s) {
-        print(s + '\n');
+        print(RESPONSE_MARKER + s + '\n');
     }
 
     public void log(Object o) {
@@ -105,6 +106,30 @@ public class GameLogger {
         print(new Date().toString() + "\t" + s + '\n');
     }
 
+    public void printBreak() {
+        printBreak(PREFERRED_LINE_LENGTH);
+    }
+
+    public void printBreak(int length) {
+        String s = "";
+        for (int i = 0; i < length; i++) {
+            s += LINEBREAK_CHAR;
+        }
+        println(s);
+    }
+
+    public void printBreak(String tag) {
+        printBreak(tag, PREFERRED_LINE_LENGTH);
+    }
+
+    public void printBreak(String tag, int length) {
+        String s = tag;
+        for (int i = tag.length(); i < length; i++) {
+            s += LINEBREAK_CHAR;
+        }
+        println(s);
+    }
+
     public void closeAll() {
         for (PrintStream ps : streams) {
             ps.close();
@@ -118,9 +143,9 @@ public class GameLogger {
 
     public void startTask(String s) {
         if (task != null) {
-            println("\tINTERRUPTED");
+            print("\tINTERRUPTED\n");
         }
-        print(s);
+        print(RESPONSE_MARKER + s);
         task = s;
     }
 
@@ -129,9 +154,9 @@ public class GameLogger {
             return;
         }
         if (success) {
-            println("\tDONE");
+            print("\tDONE\n");
         } else {
-            println("\tFAILED");
+            print("\tFAILED\n");
         }
         task = null;
     }

@@ -71,4 +71,10 @@ public final class DIYPokemonConstants {
     public static final String SWITCH_SELECT_TEXT = "Swap";
     public static final String ITEM_SELECT_TEXT = "Item";
     public static final String END_TURN_TEXT = "End Turn";
+
+    // UI
+    public static final String RESPONSE_MARKER = "# ";
+    public static final char LINEBREAK_CHAR = '-';
+    public static final int PREFERRED_LINE_LENGTH = 64;
+
 }

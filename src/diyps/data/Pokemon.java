@@ -39,6 +39,7 @@ public class Pokemon {
     private ElementType type1;
     private ElementType type2;
     private List<Move> moveset;
+    private Trainer trainer;
 
     /**
      * Default constructor for a two-type Pokémon
@@ -51,7 +52,8 @@ public class Pokemon {
      * @param primaryType the Pokémon's primary type
      * @param secondaryType the Pokémon's secondary type
      */
-    public Pokemon(String name, int initHp, int initAttk, int initDef, int initSpd, ElementType primaryType, ElementType secondaryType) {
+    public Pokemon(Trainer trainer, String name, int initHp, int initAttk, int initDef, int initSpd, ElementType primaryType, ElementType secondaryType) {
+        this.trainer = trainer;
         this.name = name;
         this.initAttributes = new Attributes(initHp, initAttk, initDef, initSpd);
         this.attributes = initAttributes.copyOf();
@@ -70,8 +72,8 @@ public class Pokemon {
      * @param initSpd the starting speed value
      * @param primaryType the Pokémon's primary and only type
      */
-    public Pokemon(String name, int initHp, int initAttk, int initDef, int initSpd, ElementType primaryType) {
-        this(name, initHp, initAttk, initDef, initSpd, primaryType, null);
+    public Pokemon(Trainer trainer, String name, int initHp, int initAttk, int initDef, int initSpd, ElementType primaryType) {
+        this(trainer, name, initHp, initAttk, initDef, initSpd, primaryType, null);
     }
 
     /**
@@ -208,6 +210,15 @@ public class Pokemon {
     }
 
     /**
+     * Returns the Pokémon's trainer
+     *
+     * @return the Pokémon's trainer
+     */
+    public Trainer trainer() {
+        return trainer;
+    }
+
+    /**
      * Returns the number of moves a Pokémon has available
      *
      * @return the number of moves a Pokémon has available
@@ -251,7 +262,7 @@ public class Pokemon {
      * @return a new Pokémon instance
      */
     public Pokemon copyOf() {
-        return new Pokemon(name, initAttributes.health(), initAttributes.attack(), initAttributes.defense(), initAttributes.speed(), type1, type2);
+        return new Pokemon(trainer, name, initAttributes.health(), initAttributes.attack(), initAttributes.defense(), initAttributes.speed(), type1, type2);
     }
 
     /**

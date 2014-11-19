@@ -24,17 +24,39 @@
 package diyps.data;
 
 /**
- * Class representing everything a trainer can have in their inventory
+ * An abstract class containing data about everything a trainer can do for their
+ * move
  *
  * @author Alice Quiros
  */
-public class TrainerInventory {
+public abstract class MoveRecord {
 
-    private int potions;
-    private int maxPotions;
+    protected Type type;
+    protected Trainer trainer;
 
-    public TrainerInventory() {
-        potions = 0;
-        maxPotions = 0;
+    /**
+     * Returns the trainer who initiated the move
+     *
+     * @return the trainer who initiated the move
+     */
+    public Trainer trainer() {
+        return trainer;
+    }
+
+    /**
+     * Returns a label corresponding to what the trainer did on the move
+     *
+     * @return a label corresponding to what the trainer did on the move
+     */
+    public Type type() {
+        return type;
+    }
+
+    /**
+     * Enumeration containing labels for all the different motions during a move
+     */
+    public static enum Type {
+
+        FIGHT, SWAP, ITEM, NONE
     }
 }

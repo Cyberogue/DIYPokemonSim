@@ -44,20 +44,19 @@ public class DIYPSProgram {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        DIYPSGame game = new DIYPSGame();;
         try {
-            DIYPSGame.out.println("GAME START");
-            DIYPSGame game = new DIYPSGame(TRAINER1_FILE, TRAINER2_FILE);
+            game.out.println("GAME START");
             game.loadCombatants(TRAINER1_FILE, TRAINER2_FILE);
 
-            DIYPSGame.out.startTask("LOADING TYPE DATA...");
+            game.out.startTask("LOADING TYPE DATA...");
             PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
-            DIYPSGame.out.completeTask(true);
+            game.out.completeTask(true);
 
             game.start();
         } catch (Exception e) {
-            DIYPSGame.out.completeTask(false);
-            DIYPSGame.out.println(e);
+            game.out.completeTask(false);
+            game.out.println(e);
             e.printStackTrace();
         }
     }

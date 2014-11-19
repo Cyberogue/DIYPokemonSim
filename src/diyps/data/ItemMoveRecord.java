@@ -21,20 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package diyps.data;
 
 /**
- * Class representing everything a trainer can have in their inventory
  *
  * @author Alice Quiros
  */
-public class TrainerInventory {
-
-    private int potions;
-    private int maxPotions;
-
-    public TrainerInventory() {
-        potions = 0;
-        maxPotions = 0;
-    }
+public class ItemMoveRecord {
+    
 }

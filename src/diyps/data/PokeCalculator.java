@@ -133,29 +133,4 @@ public abstract class PokeCalculator {
             return multiplier;
         }
     }
-
-    /**
-     * calculates the total damage multiplier of an attack from one Pokémon to
-     * another, taking into account type advantages, STAB and current
-     * attack/defense values
-     *
-     * @param attackType The type of the attacking move
-     * @param attacker the attributes of the attacking Pokémon
-     * @param defender the attributes of the defending Pokémon
-     * @return the total damage multiplier of an attack from one Pokémon to
-     * another
-     */
-    public static float calculateDamageMultiplier(ElementType attackType, Pokemon attacker, Pokemon defender) {
-        float multiplier = 1f;
-
-        if (attackType == attacker.primaryType() || attackType == attacker.secondaryType()) {
-            multiplier = 1.5f;
-        }
-
-        multiplier *= getTypeBonus(attackType, defender.primaryType());
-        multiplier *= getTypeBonus(attackType, defender.secondaryType());
-        multiplier *= (float) attacker.getAttributes().attack() / defender.getAttributes().defense();
-
-        return multiplier;
-    }
 }

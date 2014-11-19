@@ -68,7 +68,7 @@ public class PokemonXMLLoader {
                         if (trainer == null) {
                             continue;
                         }
-                        trainer.addToParty(loadPokemon(node));
+                        trainer.addToParty(loadPokemon(trainer, node));
                         break;
                     default:
                         System.out.println("Unknown node " + name);
@@ -80,7 +80,7 @@ public class PokemonXMLLoader {
         return trainer;
     }
 
-    private Pokemon loadPokemon(Node basenode) {
+    private Pokemon loadPokemon(Trainer trainer, Node basenode) {
         NodeList nodes = basenode.getChildNodes();
         ArrayList<Move> pkMoves = new ArrayList(4);
         Attributes pkAttr = new Attributes();
@@ -132,7 +132,7 @@ public class PokemonXMLLoader {
             }
         }
 
-        Pokemon pokemon = new Pokemon(pkName, pkAttr.health(), pkAttr.attack(), pkAttr.defense(), pkAttr.speed(), type1, type2);
+        Pokemon pokemon = new Pokemon(trainer, pkName, pkAttr.health(), pkAttr.attack(), pkAttr.defense(), pkAttr.speed(), type1, type2);
         pokemon.addMoves(pkMoves);
         return pokemon;
     }

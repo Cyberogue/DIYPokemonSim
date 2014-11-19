@@ -24,17 +24,33 @@
 package diyps.data;
 
 /**
- * Class representing everything a trainer can have in their inventory
  *
  * @author Alice Quiros
  */
-public class TrainerInventory {
+public class FightMoveRecord extends MoveRecord {
 
-    private int potions;
-    private int maxPotions;
+    private AttackRecord moveRecord;
 
-    public TrainerInventory() {
-        potions = 0;
-        maxPotions = 0;
+    /**
+     * Default constructor
+     *
+     * @param trainer the trainer who initiated the move
+     * @param moveRecord the exchange of the move between the two Pokémon
+     */
+    public FightMoveRecord(Trainer trainer, AttackRecord moveRecord) {
+        this.type = MoveRecord.Type.FIGHT;
+        this.trainer = trainer;
+    }
+
+    /**
+     * Basic constructor
+     *
+     * @param trainer the trainer who initiated the move
+     * @param attacker the attacking Pokémon
+     * @param defender the defending Pokémon
+     * @param move the move used by the attacker r
+     */
+    public FightMoveRecord(Trainer trainer, Pokemon attacker, Pokemon defender, Move move) {
+        this(trainer, new AttackRecord(move, attacker, defender));
     }
 }

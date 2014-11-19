@@ -23,6 +23,8 @@
  */
 package diyps.game;
 
+import diyps.data.Pokemon;
+import diyps.data.Trainer;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -35,10 +37,12 @@ public class DIYPSUtility {
 
     private Random random;
     private Scanner input;
+    private DIYPSGame game;
 
-    public DIYPSUtility() {
-        random = new Random();
-        input = new Scanner(System.in);
+    public DIYPSUtility(DIYPSGame game) {
+        this.random = new Random();
+        this.input = new Scanner(System.in);
+        this.game = game;
     }
 
     public Random random() {
@@ -65,7 +69,50 @@ public class DIYPSUtility {
                 }
             }
 
-            System.out.println(retryMessage);
+            game.out.println(retryMessage);
+        }
+    }
+
+    public String toString(Object[] obj) {
+        int i = 0;
+        String s = "{";
+
+        while (i < obj.length - 1) {
+            s = s.concat(obj[i].toString() + ", ");
+        }
+
+        if (obj.length > 0) {
+            s += obj[obj.length - 1];
+        }
+
+        return s + "}";
+    }
+
+    public String center(String s, int size) {
+        return center(s, size, ' ');
+    }
+
+    public String center(String s, int size, char padding) {
+        int half = (size - s.length()) / 2;
+        String str = "";
+
+        for (int i = 0; i < half; i++) {
+            str += padding;
+        }
+
+        str += s;
+
+        for (int i = str.length(); i < size; i++) {
+            str += padding;
+        }
+        return str;
+    }
+
+    public void wait(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ie) {
+
         }
     }
 }
