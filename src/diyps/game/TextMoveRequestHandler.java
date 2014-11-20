@@ -203,15 +203,16 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
                 break;
         }
 
-        Thread.sleep(500);
+        Thread.sleep(1000);
 
         int damage = record.getTotalDamage();
         record.defender().getAttributes().changeHealth(-1 * damage);
         game.out.println(record.attacker().name() + " dealt " + damage + " points of damage to " + record.defender().name() + " [HP:" + record.defender().health() + "]");
 
         if (record.defender().isDead()) {
-            Thread.sleep(500);
             game.out.println(record.defender().name() + " fainted!");
+            game.out.println();
+            Thread.sleep(1000);
         }
     }
 

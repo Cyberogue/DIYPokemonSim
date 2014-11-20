@@ -18,7 +18,7 @@
 		<attributes health='450' attack='49' defense='49' speed='45'></attributes>
 		<move name="Tackle" type="Normal" mode="Damage" value="50"></move>
 		<move name="Growl" type="Normal" mode="Attack" value="10"></move>
-		<move name="Vine Whip" type="Grass" mode="Defense" value="45"></move>
+		<move name="Vine Whip" type="Grass" mode="Damage" value="45"></move>
 		<move name="Razor Leaf" type="Grass" mode="Damage" value="55"></move>
 	</pokemon>
 	
