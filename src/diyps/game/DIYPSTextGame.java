@@ -104,6 +104,11 @@ public class DIYPSTextGame extends DIYPSGame {
     @Override
     public void onEnd() {
         out.println(super.getWinner().name() + " wins the battle!");
+        out.println("(But loses their self respect and dignity)");
+        try {
+            Thread.sleep(Integer.MAX_VALUE);
+        } catch (InterruptedException ie) {
+        }
     }
 
     private MoveRequest nextMove(Trainer trainer) {

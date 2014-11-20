@@ -168,7 +168,7 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
                         break;
                     case DEFENSE_SELF:
                         attacker.getAttributes().changeDefense(move.value());
-                        game.out.println(defender.name() + "'s attack went up! [" + defender.defense() + "]");
+                        game.out.println(attacker.name() + "'s defense went up! [" + attacker.defense() + "]");
                         break;
                     case SPEED:
                         defender.getAttributes().changeSpeed(-move.value());
@@ -176,7 +176,7 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
                         break;
                     case SPEED_SELF:
                         attacker.getAttributes().changeSpeed(move.value());
-                        game.out.println(defender.name() + "'s speed went up! [" + defender.speed() + "]");
+                        game.out.println(attacker.name() + "'s speed went up! [" + attacker.speed() + "]");
                         break;
                 }
                 game.out.println();

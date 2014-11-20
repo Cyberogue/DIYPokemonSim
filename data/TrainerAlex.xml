@@ -1,0 +1,24 @@
+<trainer>
+	<name>Alex</name>
+
+	<pokemon>
+		<name>Dickasaurus</name>
+		<type>Ghost</type>
+		<type2>Dragon</type2>
+		<attributes health='1000' attack='200' defense='100' speed='1'></attributes>
+		<move name="Dick Slam" type="Fairy" mode="Damage" value="60"></move>
+		<move name="Jizz Cannon" type="Water" mode="Attack" value="20"></move>
+		<move name="Dragon Dong" type="Dragon" mode="Damage" value="60"></move>
+		<move name="Jerk It" type="Fighting" mode="Attack_Self" value="20"></move>
+	</pokemon>
+	
+	<pokemon>
+		<name>JesusJew</name>
+		<type>Dark</type>
+		<attributes health='500' attack='100' defense='200' speed='100'></attributes>
+		<move name="Holy Enema" type="Fairy" mode="Defense" value="20"></move>
+		<move name="Circumcision" type="Dark" mode="Attack" value="20"></move>
+		<move name="Crucifixion" type="Dark" mode="Damage" value="40"></move>
+		<move name="Holy Guard" type="Fairy" mode="Defense_Self" value="20"></move>
+	</pokemon>
+</trainer>
