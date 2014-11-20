@@ -78,16 +78,16 @@ public class DIYPSTextGame extends DIYPSGame {
 
         String s = withdrawn[0].name() + " ";
         for (Move move : withdrawn[0].getMoveset()) {
-            s += "|" + move.name();
+            s += " | " + (move.name().length() > 8 ? move.name().substring(0, 6) + ".." : move.name());
         }
-        s += "|HP:" + withdrawn[0].health();
+        s += " | HP:" + withdrawn[0].health();
         out.println("|" + util.center(s, PREFERRED_LINE_LENGTH - 2) + "|");
 
         s = withdrawn[1].name() + " ";
         for (Move move : withdrawn[1].getMoveset()) {
-            s += "|" + move.name();
+            s += " | " + (move.name().length() > 8 ? move.name().substring(0, 6) + ".." : move.name());
         }
-        s += "|HP:" + withdrawn[1].health();
+        s += " | HP:" + withdrawn[1].health();
         out.println("|" + util.center(s, PREFERRED_LINE_LENGTH - 2) + "|");
 
         out.printBreak();
@@ -123,14 +123,14 @@ public class DIYPSTextGame extends DIYPSGame {
             }
 
             try {
-                index = Integer.parseInt(tokens[1]);
+                index = Integer.parseInt(tokens[1]) - 1;
 
                 switch (tokens[0].toLowerCase()) {
                     case "attack":
                     case "a":
                     case "-a":
                         if (index >= withdrawn.getMoveset().size() || index < 0) {
-                            out.println("Error parsing move data: move of index " + index);
+                            out.println("Error parsing move data: invalid move selection [" + index + "]");
                             break;
                         }
                         req = new AttackRequest(trainer, withdrawn, withdrawn.getMove(index));
@@ -139,11 +139,15 @@ public class DIYPSTextGame extends DIYPSGame {
                     case "s":
                     case "-s":
                         if (index >= trainer.getParty().size() || index < 0) {
-                            out.println("Error parsing move data: no Pokemon of index " + index);
+                            out.println("Error parsing move data: invalid Pokemon selection [" + index + "]");
                             break;
                         }
                         if (trainer.getPokemon(index) == withdrawn) {
-                            out.println("Can't swap out for the same pokemon!");
+                            out.println("Can't swap out for the same Pokemon!");
+                            break;
+                        }
+                        if (trainer.getPokemon(index).isDead()) {
+                            out.println("Can't swap out for a fainted Pokemon!");
                             break;
                         }
                         req = new SwapRequest(trainer, trainer.getPokemon(index));

@@ -63,8 +63,8 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
     @Override
     public void handleRequests() {
         try {
+            game.out.println();
             handleBattle();
-            Thread.sleep(500);
 
             sortAttack();
             handleAttack();
@@ -77,11 +77,14 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
         attackPhase.clear();
     }
 
-    private void handleBattle() {
+    private void handleBattle() throws InterruptedException {
         for (MoveRequest move : battlePhase) {
             if (move.type() == MoveRequest.Type.SWAP) {
                 replacePokemon(move.trainer(), ((SwapRequest) move).newPokemon());
             }
+            game.out.println();
+
+            Thread.sleep(500);
         }
     }
 
@@ -96,7 +99,6 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
     private void sortAttack() {
         AttackRequest temp;
 
-        System.out.println(attackPhase);
         // ARRANGE MOVES BY SPEED
         int lastSwap = attackPhase.size(), swaps = 1;
         while (swaps > 0) {
@@ -105,7 +107,6 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
                 switch (attackPhase.get(i - 1).compareSpeed(attackPhase.get(i))) {
                     case 0:
                         if (game.util.random().nextBoolean()) {
-                            System.out.println("swap");
                             break;
                         }
                     case -1:
@@ -132,12 +133,11 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
             Move move = req.getAttackMove();
 
             try {
-                game.out.println(attacker.name() + " used " + move.name() + "!");
-
-                Thread.sleep(500);
+                game.out.println(req.trainer().name() + "'s " + attacker.name() + " used " + move.name() + "!");
 
                 switch (move.mode()) {
                     case DAMAGE:
+                        Thread.sleep(500);
                         handleAttackExchange(new AttackRecord(move, attacker, defender));
                         if (defender.isDead()) {
                             Pokemon next = target.getFirstUsablePokemon();
@@ -147,9 +147,9 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
                                 replacePokemon(target, next);
                             }
 
-                            for (AttackRequest ar : attackPhase) {
-                                if (ar.getAttacker() == defender) {
-                                    attackPhase.remove(ar);
+                            for (int x = 0; x < attackPhase.size(); x++) {
+                                if (attackPhase.get(x).getAttacker() == defender) {
+                                    attackPhase.remove(x);
                                 }
                             }
                         }
@@ -179,6 +179,7 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
                         game.out.println(defender.name() + "'s speed went up! [" + defender.speed() + "]");
                         break;
                 }
+                game.out.println();
 
                 Thread.sleep(2000);
             } catch (InterruptedException ie) {
@@ -190,13 +191,13 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
     private void handleAttackExchange(AttackRecord record) throws InterruptedException {
         switch (record.effectiveness()) {
             case AttackRecord.EFFECTIVENESS_NONE:
-                game.out.println("... It had no effect on " + record.defender());
+                game.out.println("... It had no effect on " + record.defender().name());
                 return;
             case AttackRecord.EFFECTIVENESS_LOW:
                 game.out.println("It's not very effective... ");
                 break;
             case AttackRecord.EFFECTIVENESS_HIGH:
-                game.out.println("It's super effective!!! " + record.defender() + ".");
+                game.out.println("It's super effective!!! " + ".");
                 break;
             default:
                 break;
@@ -205,11 +206,11 @@ public class TextMoveRequestHandler implements MoveRequestHandler {
         Thread.sleep(500);
 
         int damage = record.getTotalDamage();
-        record.defender().getAttributes().changeHealth(-damage);
+        record.defender().getAttributes().changeHealth(-1 * damage);
         game.out.println(record.attacker().name() + " dealt " + damage + " points of damage to " + record.defender().name() + " [HP:" + record.defender().health() + "]");
 
         if (record.defender().isDead()) {
-            Thread.sleep(1000);
+            Thread.sleep(500);
             game.out.println(record.defender().name() + " fainted!");
         }
     }

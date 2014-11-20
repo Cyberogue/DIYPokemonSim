@@ -5,7 +5,7 @@
 		<name>Charmander</name>
 		<type>Fire</type>
 		<type2>Flying</type2>
-		<attributes health='39' attack='52' defense='43' speed='65'></attributes>
+		<attributes health='390' attack='52' defense='43' speed='65'></attributes>
 		<move name="Scratch" type="Normal" mode="Damage" value="40"></move>
 		<move name="Growl" type="Normal" mode="Attack" value="10"></move>
 		<move name="Ember" type="Fire" mode="Damage" value="40"></move>
@@ -15,7 +15,7 @@
 	<pokemon>
 		<name>Squirtle</name>
 		<type>Water</type>
-		<attributes health='44' attack='48' defense='65' speed='43'></attributes>
+		<attributes health='440' attack='48' defense='65' speed='43'></attributes>
 		<move name="Tackle" type="Normal" mode="Damage" value="50"></move>
 		<move name="Tail Whip" type="Normal" mode="Defense" value="10"></move>
 		<move name="Water Gun" type="Water" mode="Damage" value="40"></move>

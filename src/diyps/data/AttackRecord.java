@@ -137,7 +137,7 @@ public class AttackRecord {
      * @return the total damage dealt against the defending Pokémon
      */
     public int getTotalDamage() {
-        int damage = (int) (move.value() * getDamageBonus());
+        int damage = (int) (move.value() * getDamageBonus() * attacker.attack() / defender.defense());
         if (damage < 1) {
             return 1;
         } else {

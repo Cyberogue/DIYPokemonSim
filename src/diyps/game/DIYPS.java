@@ -29,14 +29,13 @@ package diyps.game;
 
 import diyps.data.PokeCalculator;
 import static diyps.data.DIYPokemonConstants.*;
-import java.io.IOException;
 
 /**
  * Class containing the main entry point for the program
  *
  * @author Rogue <Alice Q.>
  */
-public class DIYPSProgram {
+public class DIYPS {
 
     /**
      * DIYPokemonSim entry point for the program
@@ -47,7 +46,18 @@ public class DIYPSProgram {
         DIYPSTextGame game = new DIYPSTextGame();;
         try {
             game.out.println("GAME START");
-            game.loadCombatants(TRAINER1_FILE, TRAINER2_FILE);
+
+            String[] trainers = {TRAINER1_FILE, TRAINER2_FILE};
+            if (args.length >= 1) {
+                trainers[0] = args[0];
+
+                if (args.length >= 2) {
+                    trainers[1] = args[1];
+                } else {
+                    trainers[1] = TRAINER1_FILE;
+                }
+            }
+            game.loadCombatants(trainers[0], trainers[1]);
 
             game.out.startTask("LOADING TYPE DATA...");
             PokeCalculator.loadTypeDataFromCSV("typeadv.csv", ",");
